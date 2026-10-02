@@ -18,8 +18,10 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   ACF...) só com autorização por escrito do detentor.
 - **Nome/pacote:** "NT Sem Anúncios", `com.porzelt.ntsemanuncios`. Sem
   vínculo sugerido com igreja ou editora; ícone e imagens são arte própria.
-- **Sem permissão de internet:** `android.blockedPermissions` no
-  `app.json` remove `INTERNET`. Consequência: o perfil `development`
+- **Sem permissões:** `android.permissions: []` e `android.blockedPermissions`
+  no `app.json` removem `INTERNET` e as permissões padrão que o Expo inclui
+  (armazenamento, SYSTEM_ALERT_WINDOW, VIBRATE, ACCESS_NETWORK_STATE, DUMP).
+  O build 2 (versionCode 2) ainda saiu com as padrão; corrigido a partir do 3. Consequência: o perfil `development`
   do EAS (dev client) não conectaria ao Metro. Usamos Expo Go no
   desenvolvimento, então não há problema. Se um dia precisarmos de dev
   client, removemos o bloqueio só nesse perfil.

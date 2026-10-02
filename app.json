@@ -18,8 +18,15 @@
       "package": "com.porzelt.ntsemanuncios",
       "versionCode": 2,
       "blockedPermissions": [
-        "android.permission.INTERNET"
-      ]
+        "android.permission.INTERNET",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.VIBRATE",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.DUMP"
+      ],
+      "permissions": []
     },
     "web": {
       "output": "static",
