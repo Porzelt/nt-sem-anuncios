@@ -98,11 +98,14 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   coleta de dados). versionCode 2 publicado em **Teste interno**
   (opt-in: https://play.google.com/apps/internaltest/4701550953762157666).
 
+- Página da loja preenchida (descrições, ícone 512, destaque 1024x500 e 4
+  capturas em `assets/loja/`), categoria Livros e referências, contato.
+
 ## Próximos passos
 
 1. Validar no celular os itens acima.
-2. Página da loja: descrições, ícone 512, imagem de destaque 1024x500,
-   capturas de tela (o Henrique tira no celular); categoria e contato.
+2. Fonte serifada: no celular do Henrique `fontFamily: "serif"` saiu sem serifa;
+   empacotar uma fonte (ex.: Literata) antes do build 3.
 3. Build 3 (sem as permissões padrão) e teste fechado com 12 testadores por 14 dias.
 
 ## Publicação (lembretes)
