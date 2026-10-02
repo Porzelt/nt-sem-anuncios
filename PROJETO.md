@@ -37,7 +37,13 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
 
 ## Estrutura
 
-- `src/app/index.tsx`: lista de livros + "Continuar lendo".
+- `src/app/index.tsx`: início — destaque "Continuar lendo" (ou "Comece
+  por aqui: Mateus 1" na primeira abertura), progresso geral do NT
+  (% e x/260 capítulos) e livros agrupados em seções (Evangelhos,
+  Histórico, Cartas de Paulo, Cartas gerais, Profecia; `GRUPOS` em
+  `livros.ts`) com barra de progresso por livro.
+- Na leitura, tocar no título do topo ("Mateus 5 ▾") volta/abre a grade
+  de capítulos do livro (`router.dismissTo`).
 - `src/app/[livro]/index.tsx`: grade de capítulos (livros de 1 capítulo pulam direto para a leitura).
 - `src/app/[livro]/[cap].tsx`: leitura com deslize lateral entre capítulos e botão "próximo" (no último capítulo, vai para o próximo livro).
 - `src/lib/`: `livros.ts` (metadados, lógica pura), `texto.ts`, `posicao.ts`.

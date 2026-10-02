@@ -103,7 +103,25 @@ export default function Leitura() {
 
   return (
     <ThemedView style={styles.tela}>
-      <Stack.Screen options={{ title: `${livro.nome} ${capitulo}` }} />
+      <Stack.Screen
+        options={{
+          title: `${livro.nome} ${capitulo}`,
+          // Tocar no título abre a grade de capítulos do livro.
+          headerTitle:
+            texto.length > 1
+              ? () => (
+                  <Pressable
+                    hitSlop={8}
+                    accessibilityLabel="Escolher capítulo"
+                    onPress={() => router.dismissTo(`/${livro.id}`)}>
+                    <ThemedText type="smallBold" style={styles.tituloTopo}>
+                      {`${livro.nome} ${capitulo} ▾`}
+                    </ThemedText>
+                  </Pressable>
+                )
+              : undefined,
+        }}
+      />
       <FlatList
         ref={lista}
         data={texto}
@@ -247,6 +265,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
   },
   acrescimo: { fontStyle: 'italic' },
+  tituloTopo: { fontSize: 18, lineHeight: 24 },
   proximo: {
     alignSelf: 'center',
     marginTop: Spacing.five,
