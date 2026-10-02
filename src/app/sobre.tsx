@@ -48,6 +48,14 @@ export default function Sobre() {
           O texto não foi alterado. Palavras que a tradução marca entre colchetes (acréscimos do
           tradutor para dar sentido em português) aparecem em itálico.
         </ThemedText>
+
+        <ThemedText type="smallBold" themeColor="textSecondary" style={styles.secao}>
+          FONTE
+        </ThemedText>
+        <ThemedText>
+          Literata, Copyright 2017 The Literata Project Authors, sob a SIL Open Font License 1.1.
+        </ThemedText>
+        <LinkExterno url="https://openfontlicense.org">openfontlicense.org</LinkExterno>
       </ScrollView>
     </ThemedView>
   );

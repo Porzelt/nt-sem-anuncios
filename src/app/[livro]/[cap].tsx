@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Fonts, Spacing } from '@/constants/theme';
+import { FonteLeitura, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { montarCitacao } from '@/lib/citacao';
 import { buscarLivro, LIVROS, separarAcrescimos } from '@/lib/livros';
@@ -214,8 +214,8 @@ function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, proximo }: 
 
   return (
     <ScrollView contentContainerStyle={styles.pagina}>
-      <ThemedText style={[styles.titulo, { fontFamily: Fonts.serif }]}>{titulo}</ThemedText>
-      <Text style={[corpo, { color: theme.text, fontFamily: Fonts.serif }]}>
+      <ThemedText style={[styles.titulo, { fontFamily: FonteLeitura.titulo }]}>{titulo}</ThemedText>
+      <Text style={[corpo, { color: theme.text, fontFamily: FonteLeitura.regular }]}>
         {versiculos.map((versiculo, i) => {
           const numero = i + 1;
           const marcado = selecionados.includes(numero);
@@ -257,14 +257,14 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 26,
     lineHeight: 34,
-    fontWeight: 600,
+    fontWeight: 'normal',
     marginBottom: Spacing.three,
   },
   numero: {
     fontSize: 12,
     fontWeight: 700,
   },
-  acrescimo: { fontStyle: 'italic' },
+  acrescimo: { fontFamily: FonteLeitura.italico },
   tituloTopo: { fontSize: 18, lineHeight: 24 },
   proximo: {
     alignSelf: 'center',

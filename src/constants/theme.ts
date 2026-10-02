@@ -75,6 +75,14 @@ export const Fonts = Platform.select({
   },
 });
 
+// Fonte de leitura embutida (Literata, SIL OFL), carregada em src/app/_layout.tsx.
+// Em fontes customizadas o Android não sintetiza itálico/negrito: use a família certa.
+export const FonteLeitura = {
+  regular: 'Literata_400Regular',
+  italico: 'Literata_400Regular_Italic',
+  titulo: 'Literata_600SemiBold',
+} as const;
+
 export const Spacing = {
   half: 2,
   one: 4,

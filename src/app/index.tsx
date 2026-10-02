@@ -5,7 +5,7 @@ import { Pressable, SectionList, StyleSheet, View } from 'react-native';
 import { BarraProgresso } from '@/components/barra-progresso';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Fonts, Spacing } from '@/constants/theme';
+import { FonteLeitura, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/livros';
@@ -68,7 +68,7 @@ export default function Inicio() {
         <ThemedText type="small" style={{ color: theme.tintText, opacity: 0.85 }}>
           {posicao ? 'Continuar lendo' : 'Comece por aqui'}
         </ThemedText>
-        <ThemedText style={[styles.destaqueTitulo, { color: theme.tintText, fontFamily: Fonts.serif }]}>
+        <ThemedText style={[styles.destaqueTitulo, { color: theme.tintText, fontFamily: FonteLeitura.titulo }]}>
           {`${livroDestino.nome} ${destino.capitulo}`}
         </ThemedText>
         <ThemedText type="smallBold" style={{ color: theme.tintText }}>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: Spacing.three,
     gap: Spacing.one,
   },
-  destaqueTitulo: { fontSize: 30, lineHeight: 38, fontWeight: 600 },
+  destaqueTitulo: { fontSize: 30, lineHeight: 40, fontWeight: 'normal' },
   progressoGeral: { gap: Spacing.two, paddingHorizontal: Spacing.one },
   linhaProgresso: { flexDirection: 'row', justifyContent: 'space-between' },
   secao: {

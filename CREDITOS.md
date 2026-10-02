@@ -21,3 +21,11 @@ aparece dentro do app (tela "Sobre").
 O texto não é alterado. Apenas a apresentação muda: palavras que a
 tradução marca entre colchetes (acréscimos do tradutor para dar sentido
 em português) são exibidas em itálico, sem os colchetes.
+
+## Fonte de leitura
+
+**Literata**, Copyright 2017 The Literata Project Authors
+(https://github.com/googlefonts/literata), licenciada sob a **SIL Open Font
+License 1.1** (https://openfontlicense.org). Empacotada via
+`@expo-google-fonts/literata` (pesos 400, 400 itálico e 600). Crédito também
+na tela "Sobre".

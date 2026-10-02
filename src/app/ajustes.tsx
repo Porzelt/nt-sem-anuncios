@@ -4,7 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SeletorSegmentado } from '@/components/seletor-segmentado';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Fonts, Spacing } from '@/constants/theme';
+import { FonteLeitura, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { FONTE_MAX, FONTE_MIN, usePreferencias, type Tema } from '@/lib/preferencias';
 
@@ -38,7 +38,7 @@ export default function Ajustes() {
         </View>
         <Text
           style={{
-            fontFamily: Fonts.serif,
+            fontFamily: FonteLeitura.regular,
             fontSize: fonte,
             lineHeight: fonte * 1.6,
             color: theme.text,
