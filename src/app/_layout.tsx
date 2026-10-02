@@ -1,4 +1,4 @@
-import { DarkTheme, DefaultTheme, Link, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable } from 'react-native';
 
@@ -16,14 +16,13 @@ export default function RootLayout() {
 }
 
 function BotaoAjustes() {
+  const router = useRouter();
   return (
-    <Link href="/ajustes" asChild>
-      <Pressable hitSlop={12} accessibilityLabel="Ajustes de leitura">
-        <ThemedText type="smallBold" style={{ fontSize: 18 }}>
-          Aa
-        </ThemedText>
-      </Pressable>
-    </Link>
+    <Pressable hitSlop={12} accessibilityLabel="Ajustes de leitura" onPress={() => router.push('/ajustes')}>
+      <ThemedText type="smallBold" style={{ fontSize: 18 }}>
+        Aa
+      </ThemedText>
+    </Pressable>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { SeletorSegmentado } from '@/components/seletor-segmentado';
@@ -18,6 +18,7 @@ const TEMAS: { valor: Tema; rotulo: string }[] = [
 export default function Ajustes() {
   const theme = useTheme();
   const { tema, fonte, alterar } = usePreferencias();
+  const router = useRouter();
 
   return (
     <ThemedView style={styles.tela}>
@@ -46,11 +47,11 @@ export default function Ajustes() {
           No princípio era a Palavra, e a Palavra estava junto de Deus, e a Palavra era Deus.
         </Text>
 
-        <Link href="/sobre" asChild>
-          <Pressable style={[styles.sobre, { backgroundColor: theme.backgroundElement }]}>
+        <Pressable
+          style={[styles.sobre, { backgroundColor: theme.backgroundElement }]}
+          onPress={() => router.push('/sobre')}>
             <ThemedText>Sobre o app e créditos da tradução</ThemedText>
           </Pressable>
-        </Link>
       </ScrollView>
     </ThemedView>
   );
