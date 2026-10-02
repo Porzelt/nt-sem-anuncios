@@ -9,7 +9,7 @@ import { Fonts, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/livros';
-import { lerPosicao, type Posicao } from '@/lib/posicao';
+import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posicao';
 
 const SECOES = GRUPOS.map((g) => ({
   titulo: g.nome,
@@ -42,8 +42,9 @@ export default function Inicio() {
   // Livros de 1 capítulo não têm grade: segurar o livro marca/desmarca.
   function segurar(livro: Livro) {
     if (livro.capitulos !== 1) return;
-    alternarLido(livro.id, 1);
+    ajustarPosicaoAoAlternar(livro.id, 1, alternarLido(livro.id, 1));
     setLidos(todosLidos());
+    setPosicao(lerPosicao());
   }
 
   function abrir(livro: Livro) {

@@ -8,6 +8,7 @@ import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, capitulosLidos } from '@/lib/lidos';
 import { buscarLivro } from '@/lib/livros';
+import { ajustarPosicaoAoAlternar } from '@/lib/posicao';
 
 export default function Capitulos() {
   const { livro: id } = useLocalSearchParams<{ livro: string }>();
@@ -23,7 +24,7 @@ export default function Capitulos() {
   const numeros = Array.from({ length: livro.capitulos }, (_, i) => i + 1);
 
   function alternar(n: number) {
-    alternarLido(livro!.id, n);
+    ajustarPosicaoAoAlternar(livro!.id, n, alternarLido(livro!.id, n));
     setLidos(capitulosLidos(livro!.id));
   }
 

@@ -35,11 +35,13 @@ export function marcarLido(livro: string, capitulo: number) {
   gravar(lidos);
 }
 
-export function alternarLido(livro: string, capitulo: number) {
+/** Alterna e devolve se o capítulo ficou lido. */
+export function alternarLido(livro: string, capitulo: number): boolean {
   const lidos = ler();
   const atual = lidos[livro] ?? [];
   lidos[livro] = atual.includes(capitulo)
     ? atual.filter((c) => c !== capitulo)
     : [...atual, capitulo];
   gravar(lidos);
+  return lidos[livro].includes(capitulo);
 }

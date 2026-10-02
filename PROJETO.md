@@ -74,6 +74,9 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   seguinte). Abrir ou deslizar não muda mais a posição. Cartão lido fica
   verde suave com ✓ (cores `lido`/`lidoTexto` por tema); segurar o cartão
   alterna lido/não lido (livros de 1 capítulo: segurar o livro na lista).
+  Desmarcar um capítulo anterior ao "Continuar lendo" (mesmo livro) volta
+  a posição para ele; marcar o capítulo da posição avança
+  (`ajustarPosicaoAoAlternar` em `src/lib/posicao.ts`).
   A lista de livros mostra "3/28 lidos" ou "lido ✓".
 - Ícone e splash ainda são os do template do Expo.
 - Lint: único erro é do template em `src/hooks/use-color-scheme.web.ts` (só web, igual ao MPA).
