@@ -18,6 +18,8 @@ export const Colors = {
     tint: '#3D5A80',
     tintText: '#ffffff',
     selecao: '#FFF1B8',
+    lido: '#D7EFD9',
+    lidoTexto: '#1E5631',
   },
   dark: {
     text: '#E8E6E3',
@@ -28,6 +30,8 @@ export const Colors = {
     tint: '#8FB3DE',
     tintText: '#121212',
     selecao: '#4A4120',
+    lido: '#1E3A26',
+    lidoTexto: '#9FD8A8',
   },
   sepia: {
     text: '#433422',
@@ -38,6 +42,8 @@ export const Colors = {
     tint: '#8A5A2B',
     tintText: '#F4ECD8',
     selecao: '#E8D28A',
+    lido: '#D3DDB2',
+    lidoTexto: '#3D5220',
   },
 } as const;
 

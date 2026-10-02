@@ -22,6 +22,7 @@ import { Fonts, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { montarCitacao } from '@/lib/citacao';
 import { buscarLivro, LIVROS, separarAcrescimos } from '@/lib/livros';
+import { marcarLido } from '@/lib/lidos';
 import { salvarPosicao } from '@/lib/posicao';
 import { usePreferencias } from '@/lib/preferencias';
 import { carregarLivro } from '@/lib/texto';
@@ -40,10 +41,6 @@ export default function Leitura() {
   const [selecionados, setSelecionados] = useState<number[]>([]);
   const [aviso, setAviso] = useState('');
   const lista = useRef<FlatList<string[]>>(null);
-
-  useEffect(() => {
-    if (livro) salvarPosicao({ livro: livro.id, capitulo });
-  }, [livro, capitulo]);
 
   useEffect(() => {
     if (!aviso) return;
@@ -68,6 +65,21 @@ export default function Leitura() {
   function irPara(cap: number) {
     lista.current?.scrollToIndex({ index: cap - 1, animated: true });
     mudarCapitulo(cap);
+  }
+
+  // Botão do fim do capítulo: confirma a leitura (marca como lido) e
+  // aponta o "Continuar lendo" para o capítulo seguinte.
+  function concluir(cap: number) {
+    marcarLido(livro!.id, cap);
+    if (cap < texto.length) {
+      salvarPosicao({ livro: livro!.id, capitulo: cap + 1 });
+      irPara(cap + 1);
+    } else if (proximoLivro) {
+      salvarPosicao({ livro: proximoLivro.id, capitulo: 1 });
+      router.replace(`/${proximoLivro.id}/1`);
+    } else {
+      setAviso('Leitura concluída ✓');
+    }
   }
 
   function alternar(numero: number) {
@@ -107,7 +119,12 @@ export default function Leitura() {
         initialNumToRender={1}
         renderItem={({ item, index }) => {
           const cap = index + 1;
-          const ultimo = cap === texto.length;
+          const rotulo =
+            cap < texto.length
+              ? `Capítulo ${cap + 1} →`
+              : proximoLivro
+                ? `${proximoLivro.nome} 1 →`
+                : 'Concluir leitura ✓';
           return (
             <View style={{ width }}>
               <PaginaCapitulo
@@ -115,14 +132,7 @@ export default function Leitura() {
                 versiculos={item}
                 selecionados={cap === capitulo ? selecionados : []}
                 onToque={alternar}
-                proximo={
-                  ultimo
-                    ? proximoLivro && {
-                        rotulo: `${proximoLivro.nome} 1 →`,
-                        acao: () => router.replace(`/${proximoLivro.id}/1`),
-                      }
-                    : { rotulo: `Capítulo ${cap + 1} →`, acao: () => irPara(cap + 1) }
-                }
+                proximo={{ rotulo, acao: () => concluir(cap) }}
               />
             </View>
           );

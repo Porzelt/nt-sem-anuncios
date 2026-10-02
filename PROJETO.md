@@ -60,6 +60,15 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   leitura (`useKeepAwake`); tocar em versículos seleciona → barra com
   Copiar/Compartilhar (texto + "— Livro cap:v (BLIVRE)", lógica pura em
   `src/lib/citacao.ts`, testada no Node); tela Sobre com créditos.
+- Ajustes, copiar/compartilhar validados no celular.
+- **Capítulos lidos** (ainda não validado no celular): o botão no fim do
+  capítulo ("Capítulo X →", "Livro 1 →", "Concluir leitura ✓" em Ap 22)
+  é a confirmação de leitura — marca o capítulo como lido (`src/lib/lidos.ts`,
+  kv-store) e só ele atualiza o "Continuar lendo" (para o capítulo
+  seguinte). Abrir ou deslizar não muda mais a posição. Cartão lido fica
+  verde suave com ✓ (cores `lido`/`lidoTexto` por tema); segurar o cartão
+  alterna lido/não lido (livros de 1 capítulo: segurar o livro na lista).
+  A lista de livros mostra "3/28 lidos" ou "lido ✓".
 - Ícone e splash ainda são os do template do Expo.
 - Lint: único erro é do template em `src/hooks/use-color-scheme.web.ts` (só web, igual ao MPA).
 

@@ -6,6 +6,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, LIVROS, type Livro } from '@/lib/livros';
 import { lerPosicao, type Posicao } from '@/lib/posicao';
 
@@ -13,8 +14,28 @@ export default function ListaDeLivros() {
   const router = useRouter();
   const theme = useTheme();
   const [posicao, setPosicao] = useState<Posicao | null>(null);
+  const [lidos, setLidos] = useState<Record<string, number[]>>({});
 
-  useFocusEffect(useCallback(() => setPosicao(lerPosicao()), []));
+  useFocusEffect(
+    useCallback(() => {
+      setPosicao(lerPosicao());
+      setLidos(todosLidos());
+    }, []),
+  );
+
+  function descricao(livro: Livro) {
+    const n = lidos[livro.id]?.length ?? 0;
+    if (n === livro.capitulos) return 'lido ✓';
+    if (n > 0) return `${n}/${livro.capitulos} lidos`;
+    return `${livro.capitulos} ${livro.capitulos === 1 ? 'capítulo' : 'capítulos'}`;
+  }
+
+  // Livros de 1 capítulo não têm grade: segurar o livro marca/desmarca.
+  function segurar(livro: Livro) {
+    if (livro.capitulos !== 1) return;
+    alternarLido(livro.id, 1);
+    setLidos(todosLidos());
+  }
 
   function abrir(livro: Livro) {
     if (livro.capitulos === 1) router.push(`/${livro.id}/1`);
@@ -46,10 +67,11 @@ export default function ListaDeLivros() {
         renderItem={({ item }) => (
           <Pressable
             style={({ pressed }) => [styles.item, pressed && { backgroundColor: theme.backgroundSelected }]}
-            onPress={() => abrir(item)}>
+            onPress={() => abrir(item)}
+            onLongPress={() => segurar(item)}>
             <ThemedText>{item.nome}</ThemedText>
             <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
-              {`${item.capitulos} ${item.capitulos === 1 ? 'capítulo' : 'capítulos'}`}
+              {descricao(item)}
             </ThemedText>
           </Pressable>
         )}
