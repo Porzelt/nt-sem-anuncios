@@ -87,7 +87,7 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
 ## Próximos passos
 
 1. Validar no celular os itens acima.
-3. Política de privacidade, build de teste interno (EAS, pedir confirmação).
+2. Política de privacidade, build de teste interno (EAS, pedir confirmação).
 
 ## Publicação (lembretes)
 
