@@ -78,13 +78,15 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   a posição para ele; marcar o capítulo da posição avança
   (`ajustarPosicaoAoAlternar` em `src/lib/posicao.ts`).
   A lista de livros mostra "3/28 lidos" ou "lido ✓".
-- Ícone e splash ainda são os do template do Expo.
+- Ícone: livro aberto com "NT" (arte em `assets/icone/origem.webp`, feita
+  pelo Henrique num gerador de imagem externo). `node scripts/gerar-icones.mjs`
+  gera ícone, adaptativo (fundo #365478), monocromático, splash e favicon.
+  Só aparece no celular depois de um build (o Expo Go mostra o ícone dele).
 - Lint: único erro é do template em `src/hooks/use-color-scheme.web.ts` (só web, igual ao MPA).
 
 ## Próximos passos
 
 1. Validar no celular os itens acima.
-2. Ícone próprio e splash.
 3. Política de privacidade, build de teste interno (EAS, pedir confirmação).
 
 ## Publicação (lembretes)
