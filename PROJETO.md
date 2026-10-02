@@ -51,18 +51,23 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
 - **v1.1:** busca de texto (com `KeyboardAvoidingView behavior="padding"`).
 - **Depois:** destaques/favoritos (SQLite), plano de leitura.
 
-## Estado atual (26/09/2026)
+## Estado atual (02/10/2026)
 
-- Esqueleto pronto: lista de livros, grade de capítulos, leitura com
-  deslize e "continuar lendo". `tsc` e `lint` passam. O conversor foi
-  testado no Node. **Ainda não foi visto rodando no celular.**
-- Ícone e splash ainda são os do template do Expo e precisam ser trocados por arte própria.
+- Esqueleto validado no celular via Expo Go (lista, capítulos, deslize, continuar lendo).
+- Feito, **ainda não validado no celular**: tela de Ajustes (botão "Aa" no
+  topo) com tema Sistema/Claro/Sépia/Escuro e tamanho da letra (14–32,
+  salvos no kv-store via ); tela que não apaga na
+  leitura (); tocar em versículos seleciona → barra com
+  Copiar/Compartilhar (texto + "— Livro cap:v (BLIVRE)", lógica pura em
+  , testada no Node); tela Sobre com créditos.
+- Ícone e splash ainda são os do template do Expo.
+- Lint: único erro é do template em  (só web, igual ao MPA).
 
 ## Próximos passos
 
-1. Validar o esqueleto no celular via Expo Go.
-2. Preferências (tamanho da fonte, tema claro/escuro/sépia), tela que não apaga, copiar/compartilhar versículo, tela "Sobre".
-3. Ícone próprio, política de privacidade, build de teste interno.
+1. Validar no celular os itens acima.
+2. Ícone próprio e splash.
+3. Política de privacidade, build de teste interno (EAS, pedir confirmação).
 
 ## Publicação (lembretes)
 

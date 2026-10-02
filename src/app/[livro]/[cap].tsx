@@ -1,9 +1,12 @@
+import * as Clipboard from 'expo-clipboard';
+import { useKeepAwake } from 'expo-keep-awake';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   FlatList,
   Pressable,
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   useWindowDimensions,
@@ -11,44 +14,79 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { montarCitacao } from '@/lib/citacao';
 import { buscarLivro, LIVROS, separarAcrescimos } from '@/lib/livros';
 import { salvarPosicao } from '@/lib/posicao';
+import { usePreferencias } from '@/lib/preferencias';
 import { carregarLivro } from '@/lib/texto';
 
-const TAMANHO_FONTE = 19;
-
 export default function Leitura() {
+  useKeepAwake();
   const params = useLocalSearchParams<{ livro: string; cap: string }>();
   const router = useRouter();
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const livro = buscarLivro(params.livro);
   const texto = useMemo(() => (livro ? carregarLivro(livro.id) : []), [livro]);
   const inicial = Math.min(Math.max(Number(params.cap) || 1, 1), texto.length || 1);
   const [capitulo, setCapitulo] = useState(inicial);
+  const [selecionados, setSelecionados] = useState<number[]>([]);
+  const [aviso, setAviso] = useState('');
   const lista = useRef<FlatList<string[]>>(null);
 
   useEffect(() => {
     if (livro) salvarPosicao({ livro: livro.id, capitulo });
   }, [livro, capitulo]);
 
+  useEffect(() => {
+    if (!aviso) return;
+    const t = setTimeout(() => setAviso(''), 1800);
+    return () => clearTimeout(t);
+  }, [aviso]);
+
   if (!livro) return <ThemedText>Livro não encontrado.</ThemedText>;
 
-  const indiceLivro = LIVROS.indexOf(livro);
-  const proximoLivro = LIVROS[indiceLivro + 1];
+  const proximoLivro = LIVROS[LIVROS.indexOf(livro) + 1];
+
+  function mudarCapitulo(cap: number) {
+    if (cap === capitulo) return;
+    setCapitulo(cap);
+    setSelecionados([]);
+  }
 
   function aoTerminarDeslize(e: NativeSyntheticEvent<NativeScrollEvent>) {
-    const pagina = Math.round(e.nativeEvent.contentOffset.x / width);
-    setCapitulo(pagina + 1);
+    mudarCapitulo(Math.round(e.nativeEvent.contentOffset.x / width) + 1);
   }
 
   function irPara(cap: number) {
     lista.current?.scrollToIndex({ index: cap - 1, animated: true });
-    setCapitulo(cap);
+    mudarCapitulo(cap);
+  }
+
+  function alternar(numero: number) {
+    setSelecionados((atual) =>
+      atual.includes(numero) ? atual.filter((n) => n !== numero) : [...atual, numero],
+    );
+  }
+
+  const citacao = () => montarCitacao(livro.nome, capitulo, texto[capitulo - 1], selecionados);
+
+  async function copiar() {
+    await Clipboard.setStringAsync(citacao());
+    setSelecionados([]);
+    setAviso('Copiado');
+  }
+
+  async function compartilhar() {
+    await Share.share({ message: citacao() });
+    setSelecionados([]);
   }
 
   return (
@@ -57,6 +95,7 @@ export default function Leitura() {
       <FlatList
         ref={lista}
         data={texto}
+        extraData={selecionados}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -74,6 +113,8 @@ export default function Leitura() {
               <PaginaCapitulo
                 titulo={`${livro.nome} ${cap}`}
                 versiculos={item}
+                selecionados={cap === capitulo ? selecionados : []}
+                onToque={alternar}
                 proximo={
                   ultimo
                     ? proximoLivro && {
@@ -87,35 +128,85 @@ export default function Leitura() {
           );
         }}
       />
+
+      {(selecionados.length > 0 || aviso) && (
+        <View
+          style={[
+            styles.barra,
+            { backgroundColor: theme.backgroundElement, paddingBottom: Spacing.three + insets.bottom },
+          ]}>
+          {aviso ? (
+            <ThemedText type="smallBold">{aviso}</ThemedText>
+          ) : (
+            <>
+              <BotaoBarra rotulo="Copiar" onPress={copiar} />
+              <BotaoBarra rotulo="Compartilhar" onPress={compartilhar} />
+              <BotaoBarra rotulo="Cancelar" onPress={() => setSelecionados([])} secundario />
+            </>
+          )}
+        </View>
+      )}
     </ThemedView>
+  );
+}
+
+function BotaoBarra({
+  rotulo,
+  onPress,
+  secundario,
+}: {
+  rotulo: string;
+  onPress: () => void;
+  secundario?: boolean;
+}) {
+  const theme = useTheme();
+  return (
+    <Pressable
+      onPress={onPress}
+      style={[styles.botaoBarra, !secundario && { backgroundColor: theme.tint }]}>
+      <ThemedText type="smallBold" style={{ color: secundario ? theme.textSecondary : theme.tintText }}>
+        {rotulo}
+      </ThemedText>
+    </Pressable>
   );
 }
 
 type PropsPagina = {
   titulo: string;
   versiculos: string[];
+  selecionados: number[];
+  onToque: (numero: number) => void;
   proximo?: { rotulo: string; acao: () => void };
 };
 
-function PaginaCapitulo({ titulo, versiculos, proximo }: PropsPagina) {
+function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, proximo }: PropsPagina) {
   const theme = useTheme();
-  const corpo = { fontSize: TAMANHO_FONTE, lineHeight: TAMANHO_FONTE * 1.6 };
+  const { fonte } = usePreferencias();
+  const corpo = { fontSize: fonte, lineHeight: fonte * 1.6 };
 
   return (
     <ScrollView contentContainerStyle={styles.pagina}>
       <ThemedText style={[styles.titulo, { fontFamily: Fonts.serif }]}>{titulo}</ThemedText>
       <Text style={[corpo, { color: theme.text, fontFamily: Fonts.serif }]}>
-        {versiculos.map((versiculo, i) => (
-          <Text key={i}>
-            <Text style={[styles.numero, { color: theme.textSecondary }]}>{i + 1} </Text>
-            {separarAcrescimos(versiculo).map((trecho, j) => (
-              <Text key={j} style={trecho.acrescimo ? styles.acrescimo : undefined}>
-                {trecho.texto}
+        {versiculos.map((versiculo, i) => {
+          const numero = i + 1;
+          const marcado = selecionados.includes(numero);
+          return (
+            <Text key={i}>
+              <Text
+                onPress={() => onToque(numero)}
+                style={marcado ? { backgroundColor: theme.selecao } : undefined}>
+                <Text style={[styles.numero, { color: theme.textSecondary }]}>{numero} </Text>
+                {separarAcrescimos(versiculo).map((trecho, j) => (
+                  <Text key={j} style={trecho.acrescimo ? styles.acrescimo : undefined}>
+                    {trecho.texto}
+                  </Text>
+                ))}
               </Text>
-            ))}
-            {i < versiculos.length - 1 ? ' ' : ''}
-          </Text>
-        ))}
+              {i < versiculos.length - 1 ? ' ' : ''}
+            </Text>
+          );
+        })}
       </Text>
       {proximo && (
         <Pressable
@@ -133,7 +224,7 @@ const styles = StyleSheet.create({
   pagina: {
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.three,
-    paddingBottom: Spacing.six,
+    paddingBottom: 120,
   },
   titulo: {
     fontSize: 26,
@@ -151,6 +242,23 @@ const styles = StyleSheet.create({
     marginTop: Spacing.five,
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.three,
+    borderRadius: Spacing.two,
+  },
+  barra: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: Spacing.two,
+    paddingTop: Spacing.three,
+    paddingHorizontal: Spacing.three,
+  },
+  botaoBarra: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
     borderRadius: Spacing.two,
   },
 });

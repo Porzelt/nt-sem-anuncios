@@ -7,24 +7,42 @@ import '@/global.css';
 
 import { Platform } from 'react-native';
 
+// `selecao` é o fundo de um versículo selecionado; `tint`/`tintText`, botões ativos.
 export const Colors = {
   light: {
-    text: '#000000',
+    text: '#1A1A1A',
     background: '#ffffff',
     backgroundElement: '#F0F0F3',
     backgroundSelected: '#E0E1E6',
     textSecondary: '#60646C',
+    tint: '#3D5A80',
+    tintText: '#ffffff',
+    selecao: '#FFF1B8',
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
+    text: '#E8E6E3',
+    background: '#121212',
     backgroundElement: '#212225',
     backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    textSecondary: '#A0A4AA',
+    tint: '#8FB3DE',
+    tintText: '#121212',
+    selecao: '#4A4120',
+  },
+  sepia: {
+    text: '#433422',
+    background: '#F4ECD8',
+    backgroundElement: '#EADFC4',
+    backgroundSelected: '#DFD0AE',
+    textSecondary: '#7A6650',
+    tint: '#8A5A2B',
+    tintText: '#F4ECD8',
+    selecao: '#E8D28A',
   },
 } as const;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+export type NomeTema = keyof typeof Colors;
+export type ThemeColor = keyof typeof Colors.light;
 
 export const Fonts = Platform.select({
   ios: {
