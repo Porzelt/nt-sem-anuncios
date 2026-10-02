@@ -49,7 +49,7 @@ export default function ListaDeLivros() {
             onPress={() => abrir(item)}>
             <ThemedText>{item.nome}</ThemedText>
             <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
-              {}
+              {`${item.capitulos} ${item.capitulos === 1 ? 'capítulo' : 'capítulos'}`}
             </ThemedText>
           </Pressable>
         )}
