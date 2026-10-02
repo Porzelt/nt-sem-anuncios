@@ -92,10 +92,18 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   Para atualizar: editar o HTML e republicar no mesmo endereço.
 - EAS plano gratuito: 15 builds Android/mês, fila de baixa prioridade.
 
+- Play Console: app criado (`com.porzelt.ntsemanuncios`); todas as
+  declarações de Conteúdo do app preenchidas (classificação: 12 anos no BR,
+  referências textuais a violência/sexualidade/álcool; público 13+; sem
+  coleta de dados). versionCode 2 publicado em **Teste interno**
+  (opt-in: https://play.google.com/apps/internaltest/4701550953762157666).
+
 ## Próximos passos
 
 1. Validar no celular os itens acima.
-2. Build de teste interno (EAS, pedir confirmação).
+2. Página da loja: descrições, ícone 512, imagem de destaque 1024x500,
+   capturas de tela (o Henrique tira no celular); categoria e contato.
+3. Build 3 (sem as permissões padrão) e teste fechado com 12 testadores por 14 dias.
 
 ## Publicação (lembretes)
 
