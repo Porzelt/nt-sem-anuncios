@@ -1,0 +1,124 @@
+<title>Privacidade do NT Sem Anúncios</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+  /* Layout: coluna única de leitura, como a página de um livro; cabeçalho com a marca do app. */
+  :root {
+    --bg: #f7f3ea;
+    --surface: #fffdf8;
+    --text: #1f2a37;
+    --muted: #5b6573;
+    --accent: #365478;
+    --sand: #d9b86c;
+    --border: #e6dfcf;
+    --serif: 'Literata', Georgia, 'Times New Roman', serif;
+    --sans: 'Source Sans 3', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141b24; --surface: #1b2430; --text: #e8e4da; --muted: #a3acb8;
+      --accent: #9dbbe0; --sand: #d9b86c; --border: #2a3542; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141b24; --surface: #1b2430; --text: #e8e4da; --muted: #a3acb8;
+    --accent: #9dbbe0; --sand: #d9b86c; --border: #2a3542; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 17px; line-height: 1.65; }
+  .pagina { max-width: 680px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: flex; flex-direction: column; gap: 32px; }
+  header { display: flex; align-items: center; gap: 14px; }
+  .marca { width: 44px; height: 44px; border-radius: 11px; background: #365478; display: grid; place-items: center; flex-shrink: 0; }
+  .marca span { font-family: var(--serif); font-weight: 600; font-size: 17px; color: #f4ecd8; letter-spacing: 0.5px; }
+  .nome { font-family: var(--serif); font-weight: 600; font-size: 18px; }
+  .sub { font-size: 14px; color: var(--muted); }
+  h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 6vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+  .data { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .resumo { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--sand); border-radius: 10px; padding: 18px 20px; }
+  .resumo p { margin: 0; }
+  section { display: flex; flex-direction: column; gap: 10px; }
+  h2 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin: 0; text-wrap: balance; }
+  p { margin: 0; max-width: 64ch; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  code { font-size: 15px; }
+  footer { border-top: 1px solid var(--border); padding-top: 20px; color: var(--muted); font-size: 14px; }
+</style>
+
+<div class="pagina">
+  <header>
+    <div class="marca" aria-hidden="true"><span>NT</span></div>
+    <div>
+      <div class="nome">NT Sem Anúncios</div>
+      <div class="sub">Leitura do Novo Testamento</div>
+    </div>
+  </header>
+
+  <div>
+    <h1>Política de Privacidade</h1>
+    <div class="data">Última atualização: 2 de outubro de 2026</div>
+  </div>
+
+  <div class="resumo">
+    <p><strong>Resumo:</strong> o app não coleta, não envia e não compartilha nenhum dado. Ele nem tem
+      permissão para acessar a internet. Tudo o que você faz nele fica só no seu aparelho.</p>
+  </div>
+
+  <section>
+    <h2>Quem somos</h2>
+    <p>O NT Sem Anúncios é um aplicativo gratuito de leitura do Novo Testamento, desenvolvido por
+      Henrique Porzelt Neto. Esta política explica como o aplicativo trata as informações de quem o usa.</p>
+  </section>
+
+  <section>
+    <h2>Dados coletados</h2>
+    <p>Nenhum. O aplicativo não tem contas nem login e não pede nome, e-mail ou qualquer outro dado
+      pessoal. Também não usa ferramentas de análise, de rastreamento ou de relatório de falhas.</p>
+  </section>
+
+  <section>
+    <h2>O que fica salvo no seu aparelho</h2>
+    <p>Para funcionar, o app guarda localmente, apenas no seu celular: o capítulo em que você parou, os
+      capítulos que você marcou como lidos e suas preferências de leitura (tema e tamanho da letra).
+      Essas informações nunca saem do aparelho e são apagadas se você desinstalar o app ou limpar os
+      dados dele nas configurações do Android.</p>
+  </section>
+
+  <section>
+    <h2>Permissões e internet</h2>
+    <p>O aplicativo não pede nenhuma permissão especial e não tem acesso à internet. O texto bíblico
+      vem dentro do próprio app. Os links da tela "Sobre" (site da tradução e da licença) só abrem se
+      você tocar neles, e então quem os abre é o navegador do seu celular, não o app.</p>
+  </section>
+
+  <section>
+    <h2>Copiar e compartilhar</h2>
+    <p>Quando você copia ou compartilha um versículo, o texto vai para a área de transferência ou para o
+      aplicativo que você escolher. O NT Sem Anúncios não vê nem registra para onde ele foi.</p>
+  </section>
+
+  <section>
+    <h2>Anúncios</h2>
+    <p>O aplicativo não exibe anúncios e não usa o ID de publicidade do aparelho.</p>
+  </section>
+
+  <section>
+    <h2>Crianças</h2>
+    <p>Como o aplicativo não coleta dados de ninguém, também não coleta dados de crianças.</p>
+  </section>
+
+  <section>
+    <h2>Alterações</h2>
+    <p>Se esta política mudar, a nova versão será publicada nesta mesma página, com a data de
+      atualização no topo.</p>
+  </section>
+
+  <section>
+    <h2>Contato</h2>
+    <p>Dúvidas sobre esta política: <strong>henrique.porzeltneto@gmail.com</strong></p>
+  </section>
+
+  <footer>
+    Texto bíblico: A Bíblia Livre (BLIVRE), licença
+    <a href="https://creativecommons.org/licenses/by/3.0/br/">CC BY 3.0 BR</a>.
+  </footer>
+</div>

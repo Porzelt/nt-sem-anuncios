@@ -84,10 +84,16 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
   Só aparece no celular depois de um build (o Expo Go mostra o ícone dele).
 - Lint: único erro é do template em `src/hooks/use-color-scheme.web.ts` (só web, igual ao MPA).
 
+- Política de privacidade: `docs/privacidade.html`, publicada como Artifact
+  em https://claude.ai/artifact/B6Dm3A688tKrD5evdcoGAU (precisa estar
+  compartilhada como "qualquer pessoa com o link" para a Play Console aceitar).
+  Para atualizar: editar o HTML e republicar no mesmo endereço.
+- EAS plano gratuito: 15 builds Android/mês, fila de baixa prioridade.
+
 ## Próximos passos
 
 1. Validar no celular os itens acima.
-2. Política de privacidade, build de teste interno (EAS, pedir confirmação).
+2. Build de teste interno (EAS, pedir confirmação).
 
 ## Publicação (lembretes)
 
