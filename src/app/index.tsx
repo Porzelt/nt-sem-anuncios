@@ -48,8 +48,8 @@ export default function ListaDeLivros() {
             style={({ pressed }) => [styles.item, pressed && { backgroundColor: theme.backgroundSelected }]}
             onPress={() => abrir(item)}>
             <ThemedText>{item.nome}</ThemedText>
-            <ThemedText type="small" themeColor="textSecondary">
-              {item.capitulos} {item.capitulos === 1 ? 'capítulo' : 'capítulos'}
+            <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
+              {}
             </ThemedText>
           </Pressable>
         )}
