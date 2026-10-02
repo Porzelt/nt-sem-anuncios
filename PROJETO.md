@@ -56,12 +56,12 @@ app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
 - Esqueleto validado no celular via Expo Go (lista, capítulos, deslize, continuar lendo).
 - Feito, **ainda não validado no celular**: tela de Ajustes (botão "Aa" no
   topo) com tema Sistema/Claro/Sépia/Escuro e tamanho da letra (14–32,
-  salvos no kv-store via ); tela que não apaga na
-  leitura (); tocar em versículos seleciona → barra com
+  salvos no kv-store via `src/lib/preferencias.tsx`); tela que não apaga na
+  leitura (`useKeepAwake`); tocar em versículos seleciona → barra com
   Copiar/Compartilhar (texto + "— Livro cap:v (BLIVRE)", lógica pura em
-  , testada no Node); tela Sobre com créditos.
+  `src/lib/citacao.ts`, testada no Node); tela Sobre com créditos.
 - Ícone e splash ainda são os do template do Expo.
-- Lint: único erro é do template em  (só web, igual ao MPA).
+- Lint: único erro é do template em `src/hooks/use-color-scheme.web.ts` (só web, igual ao MPA).
 
 ## Próximos passos
 
