@@ -118,6 +118,13 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   resultados com destaque. Tocar num resultado abre o capítulo com `?v=N`:
   a leitura rola até o versículo (via `onTextLayout`) e o destaca por 3 s.
 
+- 03/10/2026: revisão **aprovada**; 1.0.0 (3) disponível no teste fechado.
+  Link de inscrição dos testadores: https://play.google.com/apps/testing/com.porzelt.ntsemanuncios
+  (cada testador precisa estar na lista "Testadores NT").
+- versionCode 4 (busca + nome "Novo Testamento") salvo no teste fechado,
+  junto com nome da loja "Novo Testamento Sem Anúncios" e nova imagem de
+  destaque — aguardando envio para revisão.
+
 ## Próximos passos
 
 1. Aguardar a aprovação da revisão.
