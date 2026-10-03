@@ -103,12 +103,17 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
 - Página da loja preenchida (descrições, ícone 512, destaque 1024x500 e 4
   capturas em `assets/loja/`), categoria Livros e referências, contato.
 
+- versionCode 3 (sem permissões, com Literata) no **Teste fechado – Alpha**
+  (Brasil, lista "Testadores NT", feedback no e-mail do Henrique). Em 03/10/2026
+  as 14 mudanças (loja, declarações, teste fechado) foram **enviadas para
+  revisão do Google** (até ~7 dias).
+
 ## Próximos passos
 
-1. Validar no celular os itens acima.
-2. Fonte serifada: no celular do Henrique `fontFamily: "serif"` saiu sem serifa;
-   empacotar uma fonte (ex.: Literata) antes do build 3.
-3. Build 3 (sem as permissões padrão) e teste fechado com 12 testadores por 14 dias.
+1. Aguardar a aprovação da revisão.
+2. Adicionar 12+ testadores (contas Google) à lista "Testadores NT" e enviar
+   o link de inscrição; contar 14 dias com 12 inscritos.
+3. Depois: solicitar acesso de produção na Play Console.
 
 ## Publicação (lembretes)
 
