@@ -16,7 +16,7 @@
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.porzelt.ntsemanuncios",
-      "versionCode": 2,
+      "versionCode": 3,
       "blockedPermissions": [
         "android.permission.INTERNET",
         "android.permission.READ_EXTERNAL_STORAGE",
