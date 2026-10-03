@@ -13,6 +13,7 @@ import {
   View,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  type TextLayoutEventData,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -20,6 +21,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { FonteLeitura, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { semColchetes } from '@/lib/busca';
 import { montarCitacao } from '@/lib/citacao';
 import { buscarLivro, LIVROS, separarAcrescimos } from '@/lib/livros';
 import { marcarLido } from '@/lib/lidos';
@@ -29,7 +31,7 @@ import { carregarLivro } from '@/lib/texto';
 
 export default function Leitura() {
   useKeepAwake();
-  const params = useLocalSearchParams<{ livro: string; cap: string }>();
+  const params = useLocalSearchParams<{ livro: string; cap: string; v?: string }>();
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -38,6 +40,8 @@ export default function Leitura() {
   const texto = useMemo(() => (livro ? carregarLivro(livro.id) : []), [livro]);
   const inicial = Math.min(Math.max(Number(params.cap) || 1, 1), texto.length || 1);
   const [capitulo, setCapitulo] = useState(inicial);
+  // Versículo vindo da busca: a página inicial rola até ele e o destaca.
+  const versoAlvo = Number(params.v) || undefined;
   const [selecionados, setSelecionados] = useState<number[]>([]);
   const [aviso, setAviso] = useState('');
   const lista = useRef<FlatList<string[]>>(null);
@@ -149,6 +153,7 @@ export default function Leitura() {
                 titulo={`${livro.nome} ${cap}`}
                 versiculos={item}
                 selecionados={cap === capitulo ? selecionados : []}
+                versoAlvo={cap === inicial ? versoAlvo : undefined}
                 onToque={alternar}
                 proximo={{ rotulo, acao: () => concluir(cap) }}
               />
@@ -204,18 +209,51 @@ type PropsPagina = {
   versiculos: string[];
   selecionados: number[];
   onToque: (numero: number) => void;
+  versoAlvo?: number;
   proximo?: { rotulo: string; acao: () => void };
 };
 
-function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, proximo }: PropsPagina) {
+function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, versoAlvo, proximo }: PropsPagina) {
   const theme = useTheme();
   const { fonte } = usePreferencias();
   const corpo = { fontSize: fonte, lineHeight: fonte * 1.6 };
+  const rolagem = useRef<ScrollView>(null);
+  const topoTexto = useRef(0);
+  const jaRolou = useRef(false);
+  const [destacado, setDestacado] = useState(versoAlvo);
+
+  useEffect(() => {
+    if (!destacado) return;
+    const t = setTimeout(() => setDestacado(undefined), 3000);
+    return () => clearTimeout(t);
+  }, [destacado]);
+
+  // O capítulo é um único <Text>; para achar a altura do versículo, soma o
+  // comprimento dos versículos anteriores e procura a linha que o contém.
+  function aoMedirLinhas(e: NativeSyntheticEvent<TextLayoutEventData>) {
+    if (!versoAlvo || jaRolou.current) return;
+    jaRolou.current = true;
+    let deslocamento = 0;
+    for (let i = 0; i < versoAlvo - 1; i++) {
+      deslocamento += String(i + 1).length + 1 + semColchetes(versiculos[i]).length + 1;
+    }
+    let acumulado = 0;
+    for (const linha of e.nativeEvent.lines) {
+      acumulado += linha.text.length;
+      if (acumulado > deslocamento) {
+        rolagem.current?.scrollTo({ y: Math.max(topoTexto.current + linha.y - Spacing.three, 0), animated: false });
+        return;
+      }
+    }
+  }
 
   return (
-    <ScrollView contentContainerStyle={styles.pagina}>
+    <ScrollView ref={rolagem} contentContainerStyle={styles.pagina}>
       <ThemedText style={[styles.titulo, { fontFamily: FonteLeitura.titulo }]}>{titulo}</ThemedText>
-      <Text style={[corpo, { color: theme.text, fontFamily: FonteLeitura.regular }]}>
+      <Text
+        onLayout={(e) => (topoTexto.current = e.nativeEvent.layout.y)}
+        onTextLayout={aoMedirLinhas}
+        style={[corpo, { color: theme.text, fontFamily: FonteLeitura.regular }]}>
         {versiculos.map((versiculo, i) => {
           const numero = i + 1;
           const marcado = selecionados.includes(numero);
@@ -223,7 +261,7 @@ function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, proximo }: 
             <Text key={i}>
               <Text
                 onPress={() => onToque(numero)}
-                style={marcado ? { backgroundColor: theme.selecao } : undefined}>
+                style={marcado || destacado === numero ? { backgroundColor: theme.selecao } : undefined}>
                 <Text style={[styles.numero, { color: theme.textSecondary }]}>{numero} </Text>
                 {separarAcrescimos(versiculo).map((trecho, j) => (
                   <Text key={j} style={trecho.acrescimo ? styles.acrescimo : undefined}>

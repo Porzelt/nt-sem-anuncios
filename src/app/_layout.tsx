@@ -62,6 +62,7 @@ function Navegacao() {
         <Stack.Screen name="index" options={{ title: 'NT Sem Anúncios' }} />
         <Stack.Screen name="ajustes" options={{ title: 'Ajustes', headerRight: () => null }} />
         <Stack.Screen name="sobre" options={{ title: 'Sobre', headerRight: () => null }} />
+        <Stack.Screen name="busca" options={{ title: 'Buscar', headerRight: () => null }} />
       </Stack>
     </ThemeProvider>
   );

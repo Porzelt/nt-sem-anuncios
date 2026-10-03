@@ -58,7 +58,7 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   continuar de onde parei, tamanho da fonte, tema claro/escuro/sépia,
   fonte serifada, copiar/compartilhar versículo, tela que não apaga
   (`expo-keep-awake`), tela "Sobre" com créditos.
-- **v1.1:** busca de texto (com `KeyboardAvoidingView behavior="padding"`).
+- **v1.1:** busca de texto — feita (ver Estado atual).
 - **Depois:** destaques/favoritos (SQLite), plano de leitura.
 
 ## Estado atual (02/10/2026)
@@ -107,6 +107,13 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   (Brasil, lista "Testadores NT", feedback no e-mail do Henrique). Em 03/10/2026
   as 14 mudanças (loja, declarações, teste fechado) foram **enviadas para
   revisão do Google** (até ~7 dias).
+
+- **Busca** (ainda não validada no celular): barra "Buscar no Novo
+  Testamento…" no início abre `src/app/busca.tsx`. Lógica pura em
+  `src/lib/busca.ts` (testada no Node com o texto real): ignora acentos e
+  maiúsculas, exige todas as palavras, frase exata primeiro, até 300
+  resultados com destaque. Tocar num resultado abre o capítulo com `?v=N`:
+  a leitura rola até o versículo (via `onTextLayout`) e o destaca por 3 s.
 
 ## Próximos passos
 

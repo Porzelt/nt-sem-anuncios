@@ -60,6 +60,13 @@ export default function Inicio() {
   const cabecalho = (
     <View style={styles.cabecalho}>
       <Pressable
+        accessibilityRole="search"
+        style={[styles.busca, { backgroundColor: theme.backgroundElement }]}
+        onPress={() => router.push('/busca')}>
+        <ThemedText themeColor="textSecondary">Buscar no Novo Testamento…</ThemedText>
+      </Pressable>
+
+      <Pressable
         style={({ pressed }) => [
           styles.destaque,
           { backgroundColor: theme.tint, opacity: pressed ? 0.85 : 1 },
@@ -133,6 +140,11 @@ const styles = StyleSheet.create({
   tela: { flex: 1 },
   lista: { paddingBottom: Spacing.five },
   cabecalho: { padding: Spacing.three, gap: Spacing.four },
+  busca: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.three,
+    borderRadius: Spacing.two,
+  },
   destaque: {
     padding: Spacing.four,
     borderRadius: Spacing.three,
