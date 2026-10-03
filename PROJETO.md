@@ -10,6 +10,8 @@ Apocalipse, 27 livros). Sem anúncios, sem login, sem rastreamento,
 100% offline. O foco é uma leitura limpa e agradável. Motivo: não havia
 app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
 
+Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `master`).
+
 ## Decisões (não reabrir sem motivo forte)
 
 - **Tradução:** Bíblia Livre (BLIVRE), versão TR, sob a licença CC BY 3.0 BR.
