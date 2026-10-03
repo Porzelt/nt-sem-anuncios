@@ -1,4 +1,4 @@
-# NT Sem Anúncios
+# Novo Testamento Sem Anúncios
 
 Contexto do projeto para retomar o trabalho de qualquer máquina. Este
 arquivo é carregado automaticamente pelo Claude Code (via `CLAUDE.md`).
@@ -18,7 +18,10 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   Fonte, licença e atribuição estão em `CREDITOS.md`, e o crédito
   aparece dentro do app. Traduções protegidas (ARC, ARA, NAA, NVI, NTLH,
   ACF...) só com autorização por escrito do detentor.
-- **Nome/pacote:** "NT Sem Anúncios", `com.porzelt.ntsemanuncios`. Sem
+- **Nome/pacote:** loja "Novo Testamento Sem Anúncios"; no celular e no app
+  "Novo Testamento" (nome curto sob o ícone). Antes era "NT Sem Anúncios" —
+  trocado porque "NT" não era claro. Pacote `com.porzelt.ntsemanuncios`
+  (não muda). Sem
   vínculo sugerido com igreja ou editora; ícone e imagens são arte própria.
 - **Sem permissões:** `android.permissions: []` e `android.blockedPermissions`
   no `app.json` removem `INTERNET` e as permissões padrão que o Expo inclui

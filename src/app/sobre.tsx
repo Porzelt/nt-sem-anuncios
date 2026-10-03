@@ -18,7 +18,7 @@ export default function Sobre() {
     <ThemedView style={styles.tela}>
       <ScrollView contentContainerStyle={styles.conteudo}>
         <ThemedText type="smallBold" themeColor="textSecondary">
-          NT SEM ANÚNCIOS · versão {Constants.expoConfig?.version}
+          NOVO TESTAMENTO SEM ANÚNCIOS · versão {Constants.expoConfig?.version}
         </ThemedText>
         <ThemedText>
           Leitura do Novo Testamento gratuita, sem anúncios, sem login e sem coleta de dados. Funciona
