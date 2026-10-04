@@ -121,9 +121,10 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
 - 03/10/2026: revisão **aprovada**; 1.0.0 (3) disponível no teste fechado.
   Link de inscrição dos testadores: https://play.google.com/apps/testing/com.porzelt.ntsemanuncios
   (cada testador precisa estar na lista "Testadores NT").
-- versionCode 4 (busca + nome "Novo Testamento") salvo no teste fechado,
-  junto com nome da loja "Novo Testamento Sem Anúncios" e nova imagem de
-  destaque — aguardando envio para revisão.
+- versionCode 4 (busca + nome "Novo Testamento"), nome da loja e nova imagem
+  de destaque aprovados em 03/10/2026; 1.0.0 (4) é a versão do teste fechado.
+- 04/10/2026: lista "Testadores NT" com 11 contas (e-mails ficam só na Play
+  Console, não no repositório). Falta pelo menos 1 para chegar a 12.
 
 ## Próximos passos
 
