@@ -123,7 +123,7 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   (cada testador precisa estar na lista "Testadores NT").
 - versionCode 4 (busca + nome "Novo Testamento"), nome da loja e nova imagem
   de destaque aprovados em 03/10/2026; 1.0.0 (4) é a versão do teste fechado.
-- 04/10/2026: lista "Testadores NT" com 13 contas (e-mails ficam só na Play
+- 04/10/2026: lista "Testadores NT" com 14 contas (e-mails ficam só na Play
   Console, não no repositório). Margem ideal: 14-15 (1 ainda é @hotmail).
 
 ## Próximos passos
