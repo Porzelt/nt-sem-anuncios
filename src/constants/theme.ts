@@ -5,7 +5,7 @@
 
 import '@/global.css';
 
-import { Platform } from 'react-native';
+import { Platform, type TextStyle } from 'react-native';
 
 // `selecao` é o fundo de um versículo selecionado; `tint`/`tintText`, botões ativos.
 export const Colors = {
@@ -75,13 +75,34 @@ export const Fonts = Platform.select({
   },
 });
 
-// Fonte de leitura embutida (Literata, SIL OFL), carregada em src/app/_layout.tsx.
+// Fontes embutidas (SIL OFL), carregadas em src/app/_layout.tsx.
 // Em fontes customizadas o Android não sintetiza itálico/negrito: use a família certa.
 export const FonteLeitura = {
   regular: 'Literata_400Regular',
   italico: 'Literata_400Regular_Italic',
   titulo: 'Literata_600SemiBold',
 } as const;
+
+type EstilosFonte = { regular: TextStyle; italico: TextStyle; titulo: TextStyle };
+
+/** Estilos da fonte de leitura escolhida nos Ajustes (ver use-fonte-leitura). */
+export const FONTES_LEITURA: Record<'serifada' | 'semSerifa' | 'sistema', EstilosFonte> = {
+  serifada: {
+    regular: { fontFamily: FonteLeitura.regular },
+    italico: { fontFamily: FonteLeitura.italico },
+    titulo: { fontFamily: FonteLeitura.titulo, fontWeight: 'normal' },
+  },
+  semSerifa: {
+    regular: { fontFamily: 'AtkinsonHyperlegible_400Regular' },
+    italico: { fontFamily: 'AtkinsonHyperlegible_400Regular_Italic' },
+    titulo: { fontFamily: 'AtkinsonHyperlegible_700Bold', fontWeight: 'normal' },
+  },
+  sistema: {
+    regular: {},
+    italico: { fontStyle: 'italic' },
+    titulo: { fontWeight: '600' },
+  },
+};
 
 export const Spacing = {
   half: 2,

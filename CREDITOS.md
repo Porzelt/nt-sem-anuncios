@@ -29,3 +29,8 @@ em português) são exibidas em itálico, sem os colchetes.
 License 1.1** (https://openfontlicense.org). Empacotada via
 `@expo-google-fonts/literata` (pesos 400, 400 itálico e 600). Crédito também
 na tela "Sobre".
+
+**Atkinson Hyperlegible** (opção "Sem serifa"), Copyright 2020 Braille Institute
+of America, Inc., licenciada sob a **SIL Open Font License 1.1**
+(https://openfontlicense.org). Empacotada via `@expo-google-fonts/atkinson-hyperlegible`
+(pesos 400, 400 itálico e 700). Crédito também na tela "Sobre".

@@ -13,7 +13,8 @@ import {
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { FonteLeitura, Spacing } from '@/constants/theme';
+import { Spacing } from '@/constants/theme';
+import { useFonteLeitura } from '@/hooks/use-fonte-leitura';
 import { useTheme } from '@/hooks/use-theme';
 import { buscar, montarIndice, MINIMO_CARACTERES, type Resultado, type Versiculo } from '@/lib/busca';
 import { buscarLivro, LIVROS } from '@/lib/livros';
@@ -110,6 +111,7 @@ export default function Busca() {
 
 function TextoDestacado({ resultado }: { resultado: Resultado }) {
   const theme = useTheme();
+  const fonteLeitura = useFonteLeitura();
   const partes: { texto: string; destaque: boolean }[] = [];
   let inicio = 0;
   for (const [a, b] of resultado.trechos) {
@@ -120,7 +122,7 @@ function TextoDestacado({ resultado }: { resultado: Resultado }) {
   if (inicio < resultado.texto.length) partes.push({ texto: resultado.texto.slice(inicio), destaque: false });
 
   return (
-    <Text style={[styles.texto, { color: theme.text }]}>
+    <Text style={[styles.texto, fonteLeitura.regular, { color: theme.text }]}>
       {partes.map((p, i) => (
         <Text key={i} style={p.destaque ? { backgroundColor: theme.selecao } : undefined}>
           {p.texto}
@@ -147,5 +149,5 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     gap: Spacing.one,
   },
-  texto: { fontFamily: FonteLeitura.regular, fontSize: 16, lineHeight: 24 },
+  texto: { fontSize: 16, lineHeight: 24 },
 });

@@ -126,6 +126,14 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
 - 04/10/2026: lista "Testadores NT" com 14 contas (e-mails ficam só na Play
   Console, não no repositório). Margem ideal: 14-15 (1 ainda é @hotmail).
 
+- **v1.1 (1.1.0)**, ainda não validada no celular: botão "✓ Marcar como lido"
+  no fim do capítulo (marca sem sair; tocar de novo desmarca); Ajustes com
+  fonte (Serifada = Literata, Sem serifa = Atkinson Hyperlegible, Do celular),
+  versículos em parágrafo ou um por linha, e texto justificado; "Pesquisar"
+  na barra do versículo abre o Google no navegador. Sugestões dos testadores
+  avaliadas: v1.2 = versículos por tema + destaques/favoritos/notas;
+  fora do escopo = AT, apócrifos, traduções protegidas, comentários.
+
 ## Próximos passos
 
 1. Aguardar a aprovação da revisão.

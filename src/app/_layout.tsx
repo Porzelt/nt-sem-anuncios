@@ -2,6 +2,9 @@
 import { Literata_400Regular } from '@expo-google-fonts/literata/400Regular';
 import { Literata_400Regular_Italic } from '@expo-google-fonts/literata/400Regular_Italic';
 import { Literata_600SemiBold } from '@expo-google-fonts/literata/600SemiBold';
+import { AtkinsonHyperlegible_400Regular } from '@expo-google-fonts/atkinson-hyperlegible/400Regular';
+import { AtkinsonHyperlegible_400Regular_Italic } from '@expo-google-fonts/atkinson-hyperlegible/400Regular_Italic';
+import { AtkinsonHyperlegible_700Bold } from '@expo-google-fonts/atkinson-hyperlegible/700Bold';
 import { useFonts } from 'expo-font';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -18,6 +21,9 @@ export default function RootLayout() {
     Literata_400Regular,
     Literata_400Regular_Italic,
     Literata_600SemiBold,
+    AtkinsonHyperlegible_400Regular,
+    AtkinsonHyperlegible_400Regular_Italic,
+    AtkinsonHyperlegible_700Bold,
   });
   if (!fontesProntas) return null;
 

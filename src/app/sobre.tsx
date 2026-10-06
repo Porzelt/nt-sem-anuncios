@@ -50,10 +50,11 @@ export default function Sobre() {
         </ThemedText>
 
         <ThemedText type="smallBold" themeColor="textSecondary" style={styles.secao}>
-          FONTE
+          FONTES
         </ThemedText>
         <ThemedText>
-          Literata, Copyright 2017 The Literata Project Authors, sob a SIL Open Font License 1.1.
+          Literata, Copyright 2017 The Literata Project Authors, e Atkinson Hyperlegible,
+          Copyright 2020 Braille Institute of America, Inc., ambas sob a SIL Open Font License 1.1.
         </ThemedText>
         <LinkExterno url="https://openfontlicense.org">openfontlicense.org</LinkExterno>
       </ScrollView>

@@ -4,6 +4,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   FlatList,
+  Linking,
   Pressable,
   ScrollView,
   Share,
@@ -19,13 +20,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { FonteLeitura, Spacing } from '@/constants/theme';
+import { Spacing } from '@/constants/theme';
+import { useFonteLeitura } from '@/hooks/use-fonte-leitura';
 import { useTheme } from '@/hooks/use-theme';
 import { semColchetes } from '@/lib/busca';
-import { montarCitacao } from '@/lib/citacao';
+import { faixaDeVersiculos, montarCitacao } from '@/lib/citacao';
 import { buscarLivro, LIVROS, separarAcrescimos } from '@/lib/livros';
-import { marcarLido } from '@/lib/lidos';
-import { salvarPosicao } from '@/lib/posicao';
+import { alternarLido, capitulosLidos, marcarLido } from '@/lib/lidos';
+import { ajustarPosicaoAoAlternar, capituloSeguinte, salvarPosicao } from '@/lib/posicao';
 import { usePreferencias } from '@/lib/preferencias';
 import { carregarLivro } from '@/lib/texto';
 
@@ -44,6 +46,7 @@ export default function Leitura() {
   const versoAlvo = Number(params.v) || undefined;
   const [selecionados, setSelecionados] = useState<number[]>([]);
   const [aviso, setAviso] = useState('');
+  const [lidos, setLidos] = useState(() => capitulosLidos(params.livro));
   const lista = useRef<FlatList<string[]>>(null);
 
   useEffect(() => {
@@ -86,6 +89,19 @@ export default function Leitura() {
     }
   }
 
+  // Botão "Marcar como lido": marca (ou desmarca) sem sair do capítulo.
+  function alternarLeitura(cap: number) {
+    if (lidos.includes(cap)) {
+      ajustarPosicaoAoAlternar(livro!.id, cap, alternarLido(livro!.id, cap));
+    } else {
+      marcarLido(livro!.id, cap);
+      const seguinte = capituloSeguinte(livro!.id, cap);
+      if (seguinte) salvarPosicao(seguinte);
+      setAviso('Capítulo marcado como lido ✓');
+    }
+    setLidos(capitulosLidos(livro!.id));
+  }
+
   function alternar(numero: number) {
     setSelecionados((atual) =>
       atual.includes(numero) ? atual.filter((n) => n !== numero) : [...atual, numero],
@@ -98,6 +114,13 @@ export default function Leitura() {
     await Clipboard.setStringAsync(citacao());
     setSelecionados([]);
     setAviso('Copiado');
+  }
+
+  function pesquisar() {
+    // Abre o navegador do celular; o app em si continua sem acesso à internet.
+    const consulta = `${livro!.nome} ${capitulo}:${faixaDeVersiculos(selecionados)}`;
+    Linking.openURL(`https://www.google.com/search?q=${encodeURIComponent(consulta)}`);
+    setSelecionados([]);
   }
 
   async function compartilhar() {
@@ -129,7 +152,7 @@ export default function Leitura() {
       <FlatList
         ref={lista}
         data={texto}
-        extraData={selecionados}
+        extraData={[selecionados, lidos]}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -156,6 +179,8 @@ export default function Leitura() {
                 versoAlvo={cap === inicial ? versoAlvo : undefined}
                 onToque={alternar}
                 proximo={{ rotulo, acao: () => concluir(cap) }}
+                lido={lidos.includes(cap)}
+                onMarcarLido={() => alternarLeitura(cap)}
               />
             </View>
           );
@@ -174,7 +199,8 @@ export default function Leitura() {
             <>
               <BotaoBarra rotulo="Copiar" onPress={copiar} />
               <BotaoBarra rotulo="Compartilhar" onPress={compartilhar} />
-              <BotaoBarra rotulo="Cancelar" onPress={() => setSelecionados([])} secundario />
+              <BotaoBarra rotulo="Pesquisar" onPress={pesquisar} />
+              <BotaoBarra rotulo="✕" onPress={() => setSelecionados([])} secundario />
             </>
           )}
         </View>
@@ -211,12 +237,31 @@ type PropsPagina = {
   onToque: (numero: number) => void;
   versoAlvo?: number;
   proximo?: { rotulo: string; acao: () => void };
+  lido: boolean;
+  onMarcarLido: () => void;
 };
 
-function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, versoAlvo, proximo }: PropsPagina) {
+function PaginaCapitulo({
+  titulo,
+  versiculos,
+  selecionados,
+  onToque,
+  versoAlvo,
+  proximo,
+  lido,
+  onMarcarLido,
+}: PropsPagina) {
   const theme = useTheme();
-  const { fonte } = usePreferencias();
-  const corpo = { fontSize: fonte, lineHeight: fonte * 1.6 };
+  const { fonte, diagramacao, justificar } = usePreferencias();
+  const fonteLeitura = useFonteLeitura();
+  // Mesmo comprimento (1 caractere) nos dois modos: o cálculo de rolagem até o
+  // versículo (aoMedirLinhas) continua valendo.
+  const separador = diagramacao === 'linhas' ? '\n' : ' ';
+  const corpo = {
+    fontSize: fonte,
+    lineHeight: fonte * 1.6,
+    textAlign: justificar ? ('justify' as const) : ('left' as const),
+  };
   const rolagem = useRef<ScrollView>(null);
   const topoTexto = useRef(0);
   const jaRolou = useRef(false);
@@ -249,11 +294,11 @@ function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, versoAlvo, 
 
   return (
     <ScrollView ref={rolagem} contentContainerStyle={styles.pagina}>
-      <ThemedText style={[styles.titulo, { fontFamily: FonteLeitura.titulo }]}>{titulo}</ThemedText>
+      <ThemedText style={[styles.titulo, fonteLeitura.titulo]}>{titulo}</ThemedText>
       <Text
         onLayout={(e) => (topoTexto.current = e.nativeEvent.layout.y)}
         onTextLayout={aoMedirLinhas}
-        style={[corpo, { color: theme.text, fontFamily: FonteLeitura.regular }]}>
+        style={[corpo, fonteLeitura.regular, { color: theme.text }]}>
         {versiculos.map((versiculo, i) => {
           const numero = i + 1;
           const marcado = selecionados.includes(numero);
@@ -264,23 +309,33 @@ function PaginaCapitulo({ titulo, versiculos, selecionados, onToque, versoAlvo, 
                 style={marcado || destacado === numero ? { backgroundColor: theme.selecao } : undefined}>
                 <Text style={[styles.numero, { color: theme.textSecondary }]}>{numero} </Text>
                 {separarAcrescimos(versiculo).map((trecho, j) => (
-                  <Text key={j} style={trecho.acrescimo ? styles.acrescimo : undefined}>
+                  <Text key={j} style={trecho.acrescimo ? fonteLeitura.italico : undefined}>
                     {trecho.texto}
                   </Text>
                 ))}
               </Text>
-              {i < versiculos.length - 1 ? ' ' : ''}
+              {i < versiculos.length - 1 ? separador : ''}
             </Text>
           );
         })}
       </Text>
-      {proximo && (
+      <View style={styles.fimCapitulo}>
         <Pressable
-          style={[styles.proximo, { backgroundColor: theme.backgroundElement }]}
-          onPress={proximo.acao}>
-          <ThemedText type="smallBold">{proximo.rotulo}</ThemedText>
+          accessibilityLabel={lido ? 'Desmarcar capítulo como lido' : 'Marcar capítulo como lido'}
+          style={[styles.botaoFim, { backgroundColor: lido ? theme.lido : theme.backgroundElement }]}
+          onPress={onMarcarLido}>
+          <ThemedText type="smallBold" style={lido ? { color: theme.lidoTexto } : undefined}>
+            {lido ? '✓ Lido' : '✓ Marcar como lido'}
+          </ThemedText>
         </Pressable>
-      )}
+        {proximo && (
+          <Pressable
+            style={[styles.botaoFim, { backgroundColor: theme.backgroundElement }]}
+            onPress={proximo.acao}>
+            <ThemedText type="smallBold">{proximo.rotulo}</ThemedText>
+          </Pressable>
+        )}
+      </View>
     </ScrollView>
   );
 }
@@ -302,12 +357,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 700,
   },
-  acrescimo: { fontFamily: FonteLeitura.italico },
   tituloTopo: { fontSize: 18, lineHeight: 24 },
-  proximo: {
-    alignSelf: 'center',
+  fimCapitulo: {
     marginTop: Spacing.five,
-    paddingHorizontal: Spacing.four,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: Spacing.two,
+  },
+  botaoFim: {
+    paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
     borderRadius: Spacing.two,
   },
