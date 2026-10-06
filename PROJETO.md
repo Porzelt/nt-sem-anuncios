@@ -139,6 +139,10 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   Curadoria em `src/lib/temas.ts`; `node scripts/conferir-temas.mjs` valida as
   referências e gera `docs/revisao-temas.md` com o texto completo.
 
+- 05/10/2026: 12 testadores atingidos; contagem de 14 dias iniciada
+  (produção liberável por volta de 19/10). versionCode 5 (1.1.0) enviado
+  para revisão no teste fechado.
+
 ## Próximos passos
 
 1. Aguardar a aprovação da revisão.
