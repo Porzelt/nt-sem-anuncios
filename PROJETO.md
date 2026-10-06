@@ -134,6 +134,11 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   avaliadas: v1.2 = versículos por tema + destaques/favoritos/notas;
   fora do escopo = AT, apócrifos, traduções protegidas, comentários.
 
+- **Versículos por tema** (v1.1, aguardando revisão do Henrique): seção
+  "Para momentos de…" no início com 11 temas → `src/app/tema/[id].tsx`.
+  Curadoria em `src/lib/temas.ts`; `node scripts/conferir-temas.mjs` valida as
+  referências e gera `docs/revisao-temas.md` com o texto completo.
+
 ## Próximos passos
 
 1. Aguardar a aprovação da revisão.

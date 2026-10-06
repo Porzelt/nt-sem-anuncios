@@ -10,6 +10,7 @@ import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/livros';
 import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posicao';
+import { TEMAS } from '@/lib/temas';
 
 const SECOES = GRUPOS.map((g) => ({
   titulo: g.nome,
@@ -94,6 +95,26 @@ export default function Inicio() {
         </View>
         <BarraProgresso fracao={totalLidos / TOTAL_CAPITULOS} altura={6} />
       </View>
+
+      <View style={styles.temas}>
+        <ThemedText type="smallBold" themeColor="textSecondary" style={styles.tituloTemas}>
+          PARA MOMENTOS DE…
+        </ThemedText>
+        <View style={styles.chips}>
+          {TEMAS.map((t) => (
+            <Pressable
+              key={t.id}
+              accessibilityLabel={`${t.nome}: ${t.oferece}`}
+              style={({ pressed }) => [
+                styles.chip,
+                { backgroundColor: pressed ? theme.backgroundSelected : theme.backgroundElement },
+              ]}
+              onPress={() => router.push(`/tema/${t.id}`)}>
+              <ThemedText type="small">{t.nome}</ThemedText>
+            </Pressable>
+          ))}
+        </View>
+      </View>
     </View>
   );
 
@@ -140,6 +161,14 @@ const styles = StyleSheet.create({
   tela: { flex: 1 },
   lista: { paddingBottom: Spacing.five },
   cabecalho: { padding: Spacing.three, gap: Spacing.four },
+  temas: { gap: Spacing.two },
+  tituloTemas: { letterSpacing: 1, paddingHorizontal: Spacing.one },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
+  chip: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+    borderRadius: 999,
+  },
   busca: {
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
