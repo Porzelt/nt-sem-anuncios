@@ -182,3 +182,8 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
 - Pedir confirmação antes de `git push`, build do EAS e mudanças de
   configuração na Play Console além de preencher formulários.
 - Segredos nunca vão para o git.
+
+- 15/10/2026: 1.2.0 (7) enviada para revisão no teste fechado. Pendente para a
+  próxima versão que já precise de build (cota de builds apertada — o MPA usa
+  a mesma conta): bloquear permissões de badge (Samsung/Huawei/Sony/HTC/Oppo,
+  `READ_APP_BADGE` etc.) que vêm com o expo-notifications.
