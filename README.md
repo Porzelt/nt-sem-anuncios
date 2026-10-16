@@ -1,56 +1,87 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <img src="assets/loja/icone-512.png" width="96" alt="Ícone do app" />
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<h1 align="center">Novo Testamento Sem Anúncios</h1>
 
-## Get started
+<p align="center">
+  App Android de leitura do Novo Testamento — <b>sem anúncios, sem login, sem rastreamento e 100% offline</b>.
+  <br/>
+  <!-- PLAY_STORE_LINK: trocar pelo badge da loja quando sair para produção -->
+  <i>Em teste fechado na Google Play · produção em breve</i>
+</p>
 
-1. Install dependencies
+<p align="center">
+  <img src="assets/loja/1-inicio-claro.png" width="200" />
+  <img src="assets/loja/2-leitura.png" width="200" />
+  <img src="assets/loja/3-capitulos-sepia.png" width="200" />
+  <img src="assets/loja/4-inicio-escuro.png" width="200" />
+</p>
 
-   ```bash
-   npm install
-   ```
+> 🇺🇸 *A free, offline, ad-free and tracker-free New Testament reader for Android, built with React Native (Expo) and TypeScript. Zero network permissions, local-only storage, published on Google Play.*
 
-2. Start the app
+## Por que existe
 
-   ```bash
-   npx expo start
-   ```
+Todo app bíblico gratuito que encontrei tinha anúncios, exigia conta ou coletava dados. Este é o oposto: abre e lê. Projeto sem fins lucrativos.
 
-In the output, you'll find options to open the app in a
+## Funcionalidades
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- 27 livros (Mateus a Apocalipse), capítulos com deslize lateral e "continuar de onde parei"
+- Busca em todo o NT, sem diferenciar acentos e maiúsculas, com destaque do versículo encontrado
+- Marcação de capítulos lidos, progresso por livro e geral
+- Ofensiva de leitura (dias seguidos, com folga semanal) e lembrete diário opcional
+- "Para momentos de…": versículos selecionados por tema
+- Temas claro, sépia e escuro; fonte serifada (Literata), sem serifa (Atkinson Hyperlegible) ou a do sistema; tamanho ajustável
+- Copiar e compartilhar versículos com a referência
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Privacidade como requisito de engenharia
 
-## Get a fresh project
+- **Nenhuma permissão de rede.** O `app.json` bloqueia `INTERNET` e as permissões padrão que o Expo injeta (armazenamento, `AD_ID`, `SYSTEM_ALERT_WINDOW`…), e o manifesto final de cada build é conferido
+- O texto vai empacotado no app; tudo o que o usuário gera (posição, lidos, preferências) fica só no aparelho (`expo-sqlite/kv-store`)
+- Formulário de segurança de dados da Play Store: **não coleta dados**
 
-When you're ready, run:
+## Stack e arquitetura
 
-```bash
-npm run reset-project
+| Camada | Tecnologia |
+|---|---|
+| App | React Native 0.86 + React 19, **TypeScript**, Expo SDK 57 |
+| Navegação | expo-router (rotas por arquivo: `/[livro]/[cap]`) |
+| Persistência | expo-sqlite (kv-store) |
+| Notificações | expo-notifications (somente locais) |
+| Build/distribuição | EAS Build (`.aab`), Google Play Console (teste interno → fechado → produção) |
+| Tooling | Node.js (scripts de dados e ícones), sharp, ESLint |
+
+```
+src/
+├── app/          # telas (expo-router): início, leitura, capítulos, busca, temas, ajustes, sobre
+├── lib/          # lógica pura e testável: livros, busca, citação, lidos, ofensiva, lembrete…
+├── components/   # UI reutilizável (temas, barra de progresso, seletor)
+└── hooks/        # tema e fonte de leitura
+scripts/
+├── converter-blivre.mjs   # fonte VPL → um JSON por livro, validando 27 livros / 260 caps / 7957 versículos
+├── conferir-temas.mjs     # valida as referências da curadoria temática
+└── gerar-icones.mjs       # ícone adaptativo, monocromático, splash e favicon
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Decisões de destaque**
+- A lógica de domínio (busca, ofensiva, posição de leitura) fica em módulos puros, sem dependência de React Native, testados no Node com o texto real
+- Os dados são gerados por script e validados a cada execução, em vez de editados à mão
+- O texto é carregado sob demanda, um JSON por livro, para manter a abertura rápida
 
-### Other setup steps
+## Rodando localmente
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npm install
+npx expo start      # abrir no Expo Go
+npx tsc --noEmit && npx expo lint
+```
 
-## Learn more
+## Créditos e licenças
 
-To learn more about developing your project with Expo, look at the following resources:
+Texto bíblico: **A Bíblia Livre (BLIVRE)**, CC BY 3.0 BR. Fontes Literata e Atkinson Hyperlegible sob a SIL OFL 1.1. Detalhes em [CREDITOS.md](CREDITOS.md).
+O código-fonte está publicado para consulta e portfólio, com todos os direitos reservados.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Autor
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Henrique Porzelt Neto** — desenvolvedor full stack (PHP/Laravel, Vue, React Native)
+[LinkedIn](https://linkedin.com/in/henriqueporzelt) · [GitHub](https://github.com/Porzelt)
