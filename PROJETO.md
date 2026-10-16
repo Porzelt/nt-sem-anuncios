@@ -143,6 +143,22 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   (produção liberável por volta de 19/10). versionCode 5 (1.1.0) enviado
   para revisão no teste fechado.
 
+- 05/10/2026: 1.1.0 (5) aprovada no teste fechado. 15/10: 12 testadores
+  há 10 dias (produção ~19/10).
+- **v1.2 (1.2.0, versionCode 7 — o autoIncrement do EAS pulou o 6)**, ainda não validada no celular:
+  - **Ofensiva** (`src/lib/ofensiva.ts`, lógica pura testada no Node): dias
+    seguidos com algum capítulo marcado; 1 folga por semana; recorde. Cartão
+    🔥 no início (toque → Ajustes). Tom acolhedor, sem cobrança.
+    Marcos 7/30/100/365 dias (`MARCOS`): borda e rótulo coloridos no cartão
+    e uma mensagem única ao atingir cada um. Em dev, segurar o cartão simula.
+  - **Lembrete diário** (`src/lib/lembrete.ts`, expo-notifications local):
+    desligado por padrão, 21h; convite único ao marcar o 1º capítulo (o
+    Android 13+ exige pedir permissão, então não dá para vir ligado).
+    Agenda 14 dias à frente, pula hoje se já leu; reagenda ao abrir e ao marcar.
+    Novas permissões: POST_NOTIFICATIONS, RECEIVE_BOOT_COMPLETED (e WAKE_LOCK
+    do Firebase). Bloqueadas: c2dm RECEIVE e AD_ID. Conferir o manifesto do build.
+  - Ideia recusada: silhueta de Jesus nos capítulos lidos.
+
 ## Próximos passos
 
 1. Aguardar a aprovação da revisão.

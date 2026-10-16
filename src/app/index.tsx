@@ -1,6 +1,6 @@
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, SectionList, StyleSheet, View } from 'react-native';
+import { Alert, Pressable, SectionList, StyleSheet, View } from 'react-native';
 
 import { BarraProgresso } from '@/components/barra-progresso';
 import { ThemedText } from '@/components/themed-text';
@@ -10,6 +10,7 @@ import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/livros';
 import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posicao';
+import { lerOfensiva, marcoDe, marcoParaCelebrar } from '@/lib/ofensiva';
 import { TEMAS } from '@/lib/temas';
 
 const SECOES = GRUPOS.map((g) => ({
@@ -22,11 +23,16 @@ export default function Inicio() {
   const theme = useTheme();
   const [posicao, setPosicao] = useState<Posicao | null>(null);
   const [lidos, setLidos] = useState<Record<string, number[]>>({});
+  const [ofensiva, setOfensiva] = useState(lerOfensiva);
 
   useFocusEffect(
     useCallback(() => {
       setPosicao(lerPosicao());
       setLidos(todosLidos());
+      const o = lerOfensiva();
+      setOfensiva(o);
+      const novo = marcoParaCelebrar(o.atual);
+      if (novo) Alert.alert(`🔥 ${novo.nome}`, novo.celebracao);
     }, []),
   );
 
@@ -46,6 +52,7 @@ export default function Inicio() {
     ajustarPosicaoAoAlternar(livro.id, 1, alternarLido(livro.id, 1));
     setLidos(todosLidos());
     setPosicao(lerPosicao());
+    setOfensiva(lerOfensiva());
   }
 
   function abrir(livro: Livro) {
@@ -57,6 +64,17 @@ export default function Inicio() {
   const destino = posicao ?? { livro: 'mat', capitulo: 1 };
   const livroDestino = buscarLivro(destino.livro)!;
   const pctTotal = Math.round((totalLidos / TOTAL_CAPITULOS) * 100);
+
+  // Tom acolhedor: convida, nunca cobra.
+  const mensagemOfensiva = ofensiva.leuHoje
+    ? 'Leitura de hoje feita ✓'
+    : ofensiva.atual > 0
+      ? 'Leia um capítulo hoje para continuar'
+      : ofensiva.jaLeu
+        ? 'Que bom te ver de volta. Que tal um capítulo hoje?'
+        : 'Leia um capítulo por dia e acompanhe aqui';
+  const diasSeguidos = ofensiva.atual === 1 ? '1 dia seguido' : `${ofensiva.atual} dias seguidos`;
+  const marco = marcoDe(ofensiva.atual);
 
   const cabecalho = (
     <View style={styles.cabecalho}>
@@ -82,6 +100,41 @@ export default function Inicio() {
         <ThemedText type="smallBold" style={{ color: theme.tintText }}>
           Ler agora →
         </ThemedText>
+      </Pressable>
+
+      <Pressable
+        accessibilityLabel={`${diasSeguidos}. ${mensagemOfensiva}. Toque para configurar o lembrete.`}
+        style={({ pressed }) => [
+          styles.ofensiva,
+          {
+            backgroundColor: pressed ? theme.backgroundSelected : theme.backgroundElement,
+            borderColor: marco?.cor ?? 'transparent',
+          },
+        ]}
+        onPress={() => router.push('/ajustes')}
+        // Só em desenvolvimento: segurar simula os marcos para ver as cores.
+        onLongPress={
+          __DEV__
+            ? () => {
+                const seguinte = [7, 30, 100, 365, 0].find((d) => d > ofensiva.atual) ?? 0;
+                setOfensiva({ ...ofensiva, atual: seguinte });
+              }
+            : undefined
+        }>
+        <ThemedText style={[styles.chama, { opacity: ofensiva.atual > 0 ? 1 : 0.35 }]}>🔥</ThemedText>
+        <View style={styles.textoOfensiva}>
+          <ThemedText type="smallBold">
+            {ofensiva.recorde > 1 ? `${diasSeguidos} · recorde ${ofensiva.recorde}` : diasSeguidos}
+          </ThemedText>
+          {marco && (
+            <ThemedText type="smallBold" style={{ color: marco.cor }}>
+              {`✦ ${marco.nome}`}
+            </ThemedText>
+          )}
+          <ThemedText type="small" style={{ color: ofensiva.leuHoje ? theme.lidoTexto : theme.textSecondary }}>
+            {mensagemOfensiva}
+          </ThemedText>
+        </View>
       </Pressable>
 
       <View style={styles.progressoGeral}>
@@ -180,6 +233,16 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
   destaqueTitulo: { fontSize: 30, lineHeight: 40, fontWeight: 'normal' },
+  ofensiva: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Spacing.two,
+    borderWidth: 2,
+  },
+  chama: { fontSize: 28, lineHeight: 36 },
+  textoOfensiva: { flex: 1, gap: 2 },
   progressoGeral: { gap: Spacing.two, paddingHorizontal: Spacing.one },
   linhaProgresso: { flexDirection: 'row', justifyContent: 'space-between' },
   secao: {

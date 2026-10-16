@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { SeletorSegmentado } from '@/components/seletor-segmentado';
@@ -7,6 +8,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { useFonteLeitura } from '@/hooks/use-fonte-leitura';
 import { useTheme } from '@/hooks/use-theme';
+import { lerLembrete, salvarLembrete, type Lembrete } from '@/lib/lembrete';
 import {
   FONTE_MAX,
   FONTE_MIN,
@@ -101,6 +103,8 @@ export default function Ajustes() {
           Esta estava no princípio junto de Deus.
         </Text>
 
+        <SecaoLembrete />
+
         <Pressable
           style={[styles.sobre, { backgroundColor: theme.backgroundElement }]}
           onPress={() => router.push('/sobre')}>
@@ -108,6 +112,72 @@ export default function Ajustes() {
           </Pressable>
       </ScrollView>
     </ThemedView>
+  );
+}
+
+const LIGADO: { valor: 'nao' | 'sim'; rotulo: string }[] = [
+  { valor: 'nao', rotulo: 'Desligado' },
+  { valor: 'sim', rotulo: 'Ligado' },
+];
+
+function SecaoLembrete() {
+  const theme = useTheme();
+  const [lembrete, setLembrete] = useState(lerLembrete);
+  const [negado, setNegado] = useState(false);
+
+  async function alterar(novo: Lembrete) {
+    const ok = await salvarLembrete(novo);
+    setNegado(!ok);
+    setLembrete(ok ? novo : { ...novo, ativo: false });
+  }
+
+  // Passos de 30 min, dando a volta no dia.
+  function mudarHora(delta: number) {
+    const total = (lembrete.hora * 60 + lembrete.minuto + delta + 24 * 60) % (24 * 60);
+    void alterar({ ...lembrete, hora: Math.floor(total / 60), minuto: total % 60 });
+  }
+
+  const horario = `${String(lembrete.hora).padStart(2, '0')}:${String(lembrete.minuto).padStart(2, '0')}`;
+
+  return (
+    <>
+      <ThemedText type="smallBold" themeColor="textSecondary" style={styles.secao}>
+        LEMBRETE DIÁRIO DE LEITURA
+      </ThemedText>
+      <SeletorSegmentado
+        opcoes={LIGADO}
+        valor={lembrete.ativo ? 'sim' : 'nao'}
+        onChange={(v) => void alterar({ ...lembrete, ativo: v === 'sim' })}
+      />
+      {lembrete.ativo && (
+        <View style={styles.linhaFonte}>
+          <BotaoPasso rotulo="−" acessivel="Lembrete mais cedo" onPress={() => mudarHora(-30)} />
+          <ThemedText type="subtitle" style={{ color: theme.text }}>
+            {horario}
+          </ThemedText>
+          <BotaoPasso rotulo="+" acessivel="Lembrete mais tarde" onPress={() => mudarHora(30)} />
+        </View>
+      )}
+      <ThemedText type="small" themeColor="textSecondary">
+        {negado
+          ? 'O celular não permitiu notificações. Libere em Configurações › Apps › Novo Testamento.'
+          : 'Só avisa nos dias em que você ainda não leu. Tudo fica no celular, sem internet.'}
+      </ThemedText>
+    </>
+  );
+}
+
+function BotaoPasso({ rotulo, acessivel, onPress }: { rotulo: string; acessivel: string; onPress: () => void }) {
+  const theme = useTheme();
+  return (
+    <Pressable
+      accessibilityLabel={acessivel}
+      style={[styles.botaoFonte, { backgroundColor: theme.backgroundElement }]}
+      onPress={onPress}>
+      <ThemedText type="smallBold" style={{ fontSize: 22 }}>
+        {rotulo}
+      </ThemedText>
+    </Pressable>
   );
 }
 

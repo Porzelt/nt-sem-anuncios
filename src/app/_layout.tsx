@@ -8,11 +8,13 @@ import { AtkinsonHyperlegible_700Bold } from '@expo-google-fonts/atkinson-hyperl
 import { useFonts } from 'expo-font';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { Pressable } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useNomeTema } from '@/hooks/use-theme';
+import { reagendarLembretes } from '@/lib/lembrete';
 import { PreferenciasProvider } from '@/lib/preferencias';
 
 export default function RootLayout() {
@@ -25,6 +27,10 @@ export default function RootLayout() {
     AtkinsonHyperlegible_400Regular_Italic,
     AtkinsonHyperlegible_700Bold,
   });
+  // Renova a janela de lembretes (14 dias) a cada abertura do app.
+  useEffect(() => {
+    void reagendarLembretes();
+  }, []);
   if (!fontesProntas) return null;
 
   return (
