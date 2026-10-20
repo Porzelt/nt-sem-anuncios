@@ -187,3 +187,6 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   próxima versão que já precise de build (cota de builds apertada — o MPA usa
   a mesma conta): bloquear permissões de badge (Samsung/Huawei/Sony/HTC/Oppo,
   `READ_APP_BADGE` etc.) que vêm com o expo-notifications.
+- 20/10/2026: 14 dias cumpridos; **pedido de acesso de produção enviado**
+  (resposta por e-mail em até ~7 dias). Depois: promover 1.2.0 (7) do teste
+  fechado para produção (sem novo build).
