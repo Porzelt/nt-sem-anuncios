@@ -190,3 +190,7 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
 - 20/10/2026: 14 dias cumpridos; **pedido de acesso de produção enviado**
   (resposta por e-mail em até ~7 dias). Depois: promover 1.2.0 (7) do teste
   fechado para produção (sem novo build).
+- 21/10/2026: acesso de produção **aprovado**. 1.2.0 (7) promovida do teste
+  fechado para **Produção** (só Brasil, 100%) e enviada para revisão do Google.
+  Quando aprovar, o app fica público na Play Store. O teste fechado continua
+  ativo (útil para testar versões antes de produção).
