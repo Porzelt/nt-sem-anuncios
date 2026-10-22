@@ -194,3 +194,8 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   fechado para **Produção** (só Brasil, 100%) e enviada para revisão do Google.
   Quando aprovar, o app fica público na Play Store. O teste fechado continua
   ativo (útil para testar versões antes de produção).
+- 21/10/2026: capturas da loja refeitas (5, com o cabeçalho "Novo Testamento",
+  ofensiva e temas) em `assets/loja/`; trocadas na Play Console como
+  **rascunho** da página de detalhes (ainda não enviado para revisão —
+  falta a "Declaração de recursos de IA", decisão do Henrique, pois o ícone
+  veio de um gerador de imagens externo).
