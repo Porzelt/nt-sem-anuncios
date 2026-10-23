@@ -218,3 +218,9 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   editando o package.json + instalação limpa (o `expo install --fix` travava
   num conflito de peer do expo-symbols). expo-doctor 20/20. Tipos do RN 0.88:
   `ScrollViewInstance` e `TextLayoutEvent`. Ainda não validado no celular.
+- 24/10/2026: build **1.2.0 (8)** enviado ao EAS (SDK 58, R8, rotação de tela,
+  grupos recolhíveis, sem permissões de badge). Id do build:
+  ebb20c0c-057d-41de-b1ce-9b587cbdca6f. Plano: ao terminar, conferir permissões
+  no .aab, subir no **teste fechado** primeiro (R8 pode quebrar algo), validar
+  e só então promover para produção. Página pública da loja aberta (navegador
+  sem login mostra "Instalar", 10+ downloads); capturas novas já aparecem.
