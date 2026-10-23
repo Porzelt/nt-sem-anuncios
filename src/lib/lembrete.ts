@@ -2,6 +2,7 @@
 // locais, agendadas no próprio celular — sem internet. Agendamos dia a dia
 // para os próximos 14 dias e pulamos hoje se já houve leitura; reagendamos
 // ao abrir o app e ao marcar um capítulo.
+import { isRunningInExpoGo } from 'expo';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import Storage from 'expo-sqlite/kv-store';
 import { Alert, Platform } from 'react-native';
@@ -14,7 +15,11 @@ type ModuloNotificacoes = typeof import('expo-notifications');
 let modulo: ModuloNotificacoes | null | undefined;
 function notificacoes(): ModuloNotificacoes | null {
   if (modulo === undefined) {
-    if (Constants.executionEnvironment === ExecutionEnvironment.StoreClient) return (modulo = null);
+    // isRunningInExpoGo() é a checagem oficial; a do executionEnvironment
+    // sozinha deixou de reconhecer o Expo Go no SDK 58.
+    if (isRunningInExpoGo() || Constants.executionEnvironment === ExecutionEnvironment.StoreClient) {
+      return (modulo = null);
+    }
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       modulo = require('expo-notifications') as ModuloNotificacoes;
