@@ -211,3 +211,6 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   - Permissões de contador no ícone (badge) bloqueadas.
   - Aviso "APIs descontinuadas de ponta a ponta": vem das bibliotecas
     (React Native/Expo), não do nosso código; some quando elas atualizarem.
+  - Início: grupos de livros (Evangelhos, Histórico...) **recolhidos** ao abrir
+    o app; cabeçalho tocável com seta ▾, nº de livros e capítulos lidos do
+    grupo + barrinha. Estado só em memória (não lembra entre aberturas).

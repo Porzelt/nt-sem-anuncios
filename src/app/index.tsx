@@ -13,10 +13,10 @@ import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posica
 import { lerOfensiva, marcoDe, marcoParaCelebrar } from '@/lib/ofensiva';
 import { TEMAS } from '@/lib/temas';
 
-const SECOES = GRUPOS.map((g) => ({
-  titulo: g.nome,
-  data: LIVROS.filter((l) => l.grupo === g.id),
-}));
+const GRUPOS_COM_LIVROS = GRUPOS.map((g) => {
+  const livros = LIVROS.filter((l) => l.grupo === g.id);
+  return { ...g, livros, capitulos: livros.reduce((soma, l) => soma + l.capitulos, 0) };
+});
 
 export default function Inicio() {
   const router = useRouter();
@@ -24,6 +24,13 @@ export default function Inicio() {
   const [posicao, setPosicao] = useState<Posicao | null>(null);
   const [lidos, setLidos] = useState<Record<string, number[]>>({});
   const [ofensiva, setOfensiva] = useState(lerOfensiva);
+  // Grupos começam recolhidos a cada abertura do app (estado só em memória;
+  // continua aberto ao entrar num livro e voltar).
+  const [abertos, setAbertos] = useState<string[]>([]);
+
+  function alternarGrupo(id: string) {
+    setAbertos((atual) => (atual.includes(id) ? atual.filter((g) => g !== id) : [...atual, id]));
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -174,17 +181,47 @@ export default function Inicio() {
   return (
     <ThemedView style={styles.tela}>
       <SectionList
-        sections={SECOES}
+        sections={GRUPOS_COM_LIVROS.map((g) => ({
+          ...g,
+          aberto: abertos.includes(g.id),
+          data: abertos.includes(g.id) ? g.livros : [],
+        }))}
         keyExtractor={(livro) => livro.id}
         extraData={lidos}
         stickySectionHeadersEnabled={false}
         contentContainerStyle={styles.lista}
         ListHeaderComponent={cabecalho}
-        renderSectionHeader={({ section }) => (
-          <ThemedText type="smallBold" themeColor="textSecondary" style={styles.secao}>
-            {section.titulo.toUpperCase()}
-          </ThemedText>
-        )}
+        renderSectionHeader={({ section }) => {
+          const lidosGrupo = section.livros.reduce((soma, l) => soma + lidosNoLivro(l), 0);
+          const livrosTexto = section.livros.length === 1 ? '1 livro' : `${section.livros.length} livros`;
+          return (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityState={{ expanded: section.aberto }}
+              accessibilityLabel={`${section.nome}, ${livrosTexto}, ${lidosGrupo} de ${section.capitulos} capítulos lidos`}
+              style={({ pressed }) => [styles.secao, pressed && { backgroundColor: theme.backgroundSelected }]}
+              onPress={() => alternarGrupo(section.id)}>
+              <View style={styles.linhaItem}>
+                <ThemedText type="smallBold" themeColor="textSecondary" style={styles.tituloSecao}>
+                  {section.nome.toUpperCase()}
+                </ThemedText>
+                <ThemedText
+                  type="smallBold"
+                  themeColor="textSecondary"
+                  style={[styles.seta, section.aberto && styles.setaAberta]}>
+                  ▾
+                </ThemedText>
+              </View>
+              <ThemedText
+                type="small"
+                numberOfLines={1}
+                style={{ color: lidosGrupo === section.capitulos ? theme.lidoTexto : theme.textSecondary }}>
+                {`${livrosTexto} · ${lidosGrupo}/${section.capitulos} capítulos lidos`}
+              </ThemedText>
+              {lidosGrupo > 0 && <BarraProgresso fracao={lidosGrupo / section.capitulos} altura={3} />}
+            </Pressable>
+          );
+        }}
         renderItem={({ item }) => {
           const n = lidosNoLivro(item);
           return (
@@ -247,10 +284,12 @@ const styles = StyleSheet.create({
   linhaProgresso: { flexDirection: 'row', justifyContent: 'space-between' },
   secao: {
     paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.four,
-    paddingBottom: Spacing.one,
-    letterSpacing: 1,
+    paddingVertical: Spacing.three,
+    gap: Spacing.one,
   },
+  tituloSecao: { letterSpacing: 1 },
+  seta: { fontSize: 18 },
+  setaAberta: { transform: [{ rotate: '180deg' }] },
   item: {
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.three,
