@@ -10,6 +10,7 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter } from 'expo-r
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Pressable } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
@@ -54,6 +55,9 @@ function BotaoAjustes() {
 function Navegacao() {
   const nome = useNomeTema();
   const cores = Colors[nome];
+  // Com o celular deitado, o recorte da câmera fica na lateral: o conteúdo
+  // das telas respeita essas margens (o cabeçalho já respeita sozinho).
+  const insets = useSafeAreaInsets();
   const base = nome === 'dark' ? DarkTheme : DefaultTheme;
   const temaNavegacao = {
     ...base,
@@ -70,7 +74,12 @@ function Navegacao() {
   return (
     <ThemeProvider value={temaNavegacao}>
       <StatusBar style={nome === 'dark' ? 'light' : 'dark'} />
-      <Stack screenOptions={{ headerShadowVisible: false, headerRight: () => <BotaoAjustes /> }}>
+      <Stack
+        screenOptions={{
+          headerShadowVisible: false,
+          headerRight: () => <BotaoAjustes />,
+          contentStyle: { paddingLeft: insets.left, paddingRight: insets.right },
+        }}>
         <Stack.Screen name="index" options={{ title: 'Novo Testamento' }} />
         <Stack.Screen name="ajustes" options={{ title: 'Ajustes', headerRight: () => null }} />
         <Stack.Screen name="sobre" options={{ title: 'Sobre', headerRight: () => null }} />

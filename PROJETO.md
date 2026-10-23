@@ -199,3 +199,15 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   **rascunho** da página de detalhes (ainda não enviado para revisão —
   falta a "Declaração de recursos de IA", decisão do Henrique, pois o ícone
   veio de um gerador de imagens externo).
+- 23/10/2026: **app publicado em produção** (1.2.0 (7), Brasil). Capturas
+  novas enviadas para revisão.
+- **Próximo build (ainda não gerado)** — correções pedidas pela Play Console:
+  - R8 ligado (`expo-build-properties`: minify + shrinkResources) — aviso
+    "otimização DEX abaixo do limite", prazo fev/2027. **Testar bem no teste
+    fechado antes da produção** (R8 pode quebrar código que usa reflexão).
+  - `orientation: default` (gira a tela; pedido para telas grandes). Leitura
+    realinha a página ao girar, coluna de texto limitada a 720 px, e todas as
+    telas respeitam as margens laterais seguras (recorte da câmera deitado).
+  - Permissões de contador no ícone (badge) bloqueadas.
+  - Aviso "APIs descontinuadas de ponta a ponta": vem das bibliotecas
+    (React Native/Expo), não do nosso código; some quando elas atualizarem.

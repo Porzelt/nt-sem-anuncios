@@ -1,7 +1,7 @@
 import * as Clipboard from 'expo-clipboard';
 import { useKeepAwake } from 'expo-keep-awake';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
 import {
   FlatList,
   Linking,
@@ -37,7 +37,10 @@ export default function Leitura() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
+  // Largura útil de cada página: a tela menos as margens laterais seguras
+  // (recorte da câmera com o celular deitado), aplicadas no _layout.
+  const { width: larguraTela } = useWindowDimensions();
+  const width = larguraTela - insets.left - insets.right;
   const livro = buscarLivro(params.livro);
   const texto = useMemo(() => (livro ? carregarLivro(livro.id) : []), [livro]);
   const inicial = Math.min(Math.max(Number(params.cap) || 1, 1), texto.length || 1);
@@ -54,6 +57,15 @@ export default function Leitura() {
     const t = setTimeout(() => setAviso(''), 1800);
     return () => clearTimeout(t);
   }, [aviso]);
+
+  // Ao girar a tela a largura muda e o deslocamento antigo apontaria para
+  // outro ponto: realinha a página no capítulo atual.
+  const realinhar = useEffectEvent(() => {
+    lista.current?.scrollToIndex({ index: capitulo - 1, animated: false });
+  });
+  useEffect(() => {
+    realinhar();
+  }, [width]);
 
   if (!livro) return <ThemedText>Livro não encontrado.</ThemedText>;
 
@@ -343,6 +355,10 @@ function PaginaCapitulo({
 const styles = StyleSheet.create({
   tela: { flex: 1 },
   pagina: {
+    // Deitado ou em tablet, linhas muito longas cansam: a coluna para em 720.
+    width: '100%',
+    maxWidth: 720,
+    alignSelf: 'center',
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.three,
     paddingBottom: 120,
