@@ -224,3 +224,7 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   no .aab, subir no **teste fechado** primeiro (R8 pode quebrar algo), validar
   e só então promover para produção. Página pública da loja aberta (navegador
   sem login mostra "Instalar", 10+ downloads); capturas novas já aparecem.
+- 24/10/2026: **1.2.0 (8) enviada para revisão no teste fechado** (permissões do
+  .aab conferidas: sem INTERNET/AD_ID/badges). Produção segue na 1.2.0 (7).
+  Fluxo de homologação: aprovar no teste fechado -> testadores instalam e usam
+  alguns dias -> promover a MESMA versão para produção (sem novo build).
