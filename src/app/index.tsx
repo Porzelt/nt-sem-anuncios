@@ -199,16 +199,16 @@ export default function Inicio() {
               accessibilityRole="button"
               accessibilityState={{ expanded: section.aberto }}
               accessibilityLabel={`${section.nome}, ${livrosTexto}, ${lidosGrupo} de ${section.capitulos} capítulos lidos`}
-              style={({ pressed }) => [styles.secao, pressed && { backgroundColor: theme.backgroundSelected }]}
+              style={({ pressed }) => [
+                styles.secao,
+                { backgroundColor: pressed ? theme.backgroundSelected : theme.backgroundElement },
+              ]}
               onPress={() => alternarGrupo(section.id)}>
               <View style={styles.linhaItem}>
-                <ThemedText type="smallBold" themeColor="textSecondary" style={styles.tituloSecao}>
-                  {section.nome.toUpperCase()}
+                <ThemedText style={[styles.tituloSecao, { fontFamily: FonteLeitura.titulo }]}>
+                  {section.nome}
                 </ThemedText>
-                <ThemedText
-                  type="smallBold"
-                  themeColor="textSecondary"
-                  style={[styles.seta, section.aberto && styles.setaAberta]}>
+                <ThemedText themeColor="textSecondary" style={[styles.seta, section.aberto && styles.setaAberta]}>
                   ▾
                 </ThemedText>
               </View>
@@ -226,7 +226,11 @@ export default function Inicio() {
           const n = lidosNoLivro(item);
           return (
             <Pressable
-              style={({ pressed }) => [styles.item, pressed && { backgroundColor: theme.backgroundSelected }]}
+              style={({ pressed }) => [
+                styles.item,
+                { borderLeftColor: theme.backgroundSelected },
+                pressed && { backgroundColor: theme.backgroundSelected },
+              ]}
               onPress={() => abrir(item)}
               onLongPress={() => segurar(item)}>
               <View style={styles.linhaItem}>
@@ -282,16 +286,26 @@ const styles = StyleSheet.create({
   textoOfensiva: { flex: 1, gap: 2 },
   progressoGeral: { gap: Spacing.two, paddingHorizontal: Spacing.one },
   linhaProgresso: { flexDirection: 'row', justifyContent: 'space-between' },
+  // Grupo em cartão, mais forte que os livros (que ficam recuados abaixo).
   secao: {
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
+    marginHorizontal: Spacing.three,
+    marginTop: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Spacing.two,
     gap: Spacing.one,
   },
-  tituloSecao: { letterSpacing: 1 },
-  seta: { fontSize: 18 },
+  // A Literata semi-negrito já vem pela fontFamily; fontWeight no Android
+  // trocaria a fonte embutida pela do sistema.
+  tituloSecao: { fontSize: 20, lineHeight: 28, fontWeight: 'normal' },
+  seta: { fontSize: 20 },
   setaAberta: { transform: [{ rotate: '180deg' }] },
+  // Livro recuado, com uma linha à esquerda que o liga ao grupo acima.
   item: {
-    paddingHorizontal: Spacing.four,
+    marginLeft: Spacing.five,
+    marginRight: Spacing.three,
+    borderLeftWidth: 2,
+    paddingLeft: Spacing.three,
+    paddingRight: Spacing.two,
     paddingVertical: Spacing.three,
     gap: Spacing.two,
   },
