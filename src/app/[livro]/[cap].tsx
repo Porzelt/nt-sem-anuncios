@@ -14,7 +14,8 @@ import {
   View,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  type TextLayoutEventData,
+  type ScrollViewInstance,
+  type TextLayoutEvent,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -274,7 +275,7 @@ function PaginaCapitulo({
     lineHeight: fonte * 1.6,
     textAlign: justificar ? ('justify' as const) : ('left' as const),
   };
-  const rolagem = useRef<ScrollView>(null);
+  const rolagem = useRef<ScrollViewInstance>(null);
   const topoTexto = useRef(0);
   const jaRolou = useRef(false);
   const [destacado, setDestacado] = useState(versoAlvo);
@@ -287,7 +288,7 @@ function PaginaCapitulo({
 
   // O capítulo é um único <Text>; para achar a altura do versículo, soma o
   // comprimento dos versículos anteriores e procura a linha que o contém.
-  function aoMedirLinhas(e: NativeSyntheticEvent<TextLayoutEventData>) {
+  function aoMedirLinhas(e: TextLayoutEvent) {
     if (!versoAlvo || jaRolou.current) return;
     jaRolou.current = true;
     let deslocamento = 0;

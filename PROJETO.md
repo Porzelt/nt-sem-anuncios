@@ -214,3 +214,7 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   - Início: grupos de livros (Evangelhos, Histórico...) **recolhidos** ao abrir
     o app; cabeçalho tocável com seta ▾, nº de livros e capítulos lidos do
     grupo + barrinha. Estado só em memória (não lembra entre aberturas).
+- 23/10/2026: atualizado para **Expo SDK 58** (RN 0.88, React 19.3). Feito
+  editando o package.json + instalação limpa (o `expo install --fix` travava
+  num conflito de peer do expo-symbols). expo-doctor 20/20. Tipos do RN 0.88:
+  `ScrollViewInstance` e `TextLayoutEvent`. Ainda não validado no celular.

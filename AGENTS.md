@@ -1,10 +1,10 @@
 # Expo muda rápido — confira a versão antes de seguir doc de memória
 
-Este projeto está no **Expo SDK 57** (veja `package.json` — é a fonte de
+Este projeto está no **Expo SDK 58** (veja `package.json` — é a fonte de
 verdade, não este arquivo). Antes de usar qualquer API do Expo que ainda
 não apareça no código do projeto, confira o comportamento real em
 `node_modules/<pacote>` (README, `.d.ts`) ou nos docs versionados em
-https://docs.expo.dev/versions/v57.0.0/ — não assuma a doc mais recente.
+https://docs.expo.dev/versions/v58.0.0/ — não assuma a doc mais recente.
 
 ## Comandos
 
