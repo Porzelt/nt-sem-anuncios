@@ -228,3 +228,6 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
   .aab conferidas: sem INTERNET/AD_ID/badges). Produção segue na 1.2.0 (7).
   Fluxo de homologação: aprovar no teste fechado -> testadores instalam e usam
   alguns dias -> promover a MESMA versão para produção (sem novo build).
+- 24/10/2026: 1.2.0 (8) validada pelo Henrique no teste fechado (tudo ok) e
+  **promovida para Produção** (Brasil, 100%), enviada para revisão do Google.
+  Ao aprovar, a produção sai da 1.2.0 (7) para a (8).
