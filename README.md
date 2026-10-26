@@ -8,7 +8,7 @@
   App Android de leitura do Novo Testamento — <b>sem anúncios, sem login, sem rastreamento e 100% offline</b>.
   <br/>
   <!-- PLAY_STORE_LINK: trocar pelo badge da loja quando sair para produção -->
-  <i>Em teste fechado na Google Play · produção em breve</i>
+  <a href="https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios">Disponível na Google Play</a>
 </p>
 
 <p align="center">
