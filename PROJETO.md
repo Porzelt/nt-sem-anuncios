@@ -165,7 +165,7 @@ App publicado em produção (1.2.0 (8), Brasil, 23-24/10/2026). Sem retorno
 financeiro; o objetivo é alcance orgânico (sem dinheiro).
 
 ### Divulgação orgânica (decidido em 28/10/2026 — fazer uma a uma)
-1. [ ] **Texto da loja com a palavra "Bíblia"** (título/descrição curta/longa):
+1. [x] **Texto da loja com a palavra "Bíblia"** (feito 28/10: curta + completa, enviadas para revisão; textos em `docs/loja-textos.md`) (título/descrição curta/longa):
    as pessoas pesquisam "bíblia offline/sem anúncios". Exige confirmação do
    Henrique antes de aplicar na Play Console.
 2. [ ] **Compartilhar versículo com o nome do app + link** (só no Compartilhar,
@@ -182,7 +182,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 - Nunca avaliações falsas nem troca por avaliação (risco de banimento).
 
 ### Ideias de alcance na Play Console (a avaliar com o Henrique)
-- Liberar **outros países de língua portuguesa** (hoje só Brasil): Portugal,
+- [x] (28/10: enviado p/ revisão — Portugal, Angola, Moçambique, Cabo Verde, Guiné-Bissau, EUA, Japão, Reino Unido; Timor-Leste e São Tomé e Príncipe não existem na lista da Google Play; Portugal = UE: aviso informativo de bloqueio geográfico, ver se pedem declaração de comerciante). Liberar **outros países de língua portuguesa** (era só Brasil): Portugal,
   Angola, Moçambique, Cabo Verde etc. e diáspora (EUA, Japão, Reino Unido...).
 - **Capturas em marketing** (1080x1920, com legenda) e **capturas de tablet**:
   o Google pede 4+ capturas com 1080 px de lado para elegibilidade a promoção.
