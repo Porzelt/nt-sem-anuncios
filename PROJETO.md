@@ -159,12 +159,48 @@ Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `maste
     do Firebase). Bloqueadas: c2dm RECEIVE e AD_ID. Conferir o manifesto do build.
   - Ideia recusada: silhueta de Jesus nos capítulos lidos.
 
-## Próximos passos
+## Backlog (ordem de execução; riscar/mover ao concluir)
 
-1. Aguardar a aprovação da revisão.
-2. Adicionar 12+ testadores (contas Google) à lista "Testadores NT" e enviar
-   o link de inscrição; contar 14 dias com 12 inscritos.
-3. Depois: solicitar acesso de produção na Play Console.
+App publicado em produção (1.2.0 (8), Brasil, 23-24/10/2026). Sem retorno
+financeiro; o objetivo é alcance orgânico (sem dinheiro).
+
+### Divulgação orgânica (decidido em 28/10/2026 — fazer uma a uma)
+1. [ ] **Texto da loja com a palavra "Bíblia"** (título/descrição curta/longa):
+   as pessoas pesquisam "bíblia offline/sem anúncios". Exige confirmação do
+   Henrique antes de aplicar na Play Console.
+2. [ ] **Compartilhar versículo com o nome do app + link** (só no Compartilhar,
+   não no Copiar; desligável nos Ajustes) e **botão "Compartilhar o app"**.
+3. [ ] **Pedido de avaliação no app** depois de vários dias de leitura (conferir
+   que cabe na promessa de privacidade/sem permissões antes).
+4. [ ] **QR code** com o link da loja + mensagens de divulgação por tipo de grupo.
+5. [ ] **Roteiros de vídeos curtos** (Reels/TikTok/Shorts): "Bíblia sem anúncios",
+   ofensiva, versículos por tema.
+6. [ ] **Medir canais** (Play Console > Desempenho na loja; links diretos com
+   origem) e abandonar o que não rende.
+- Mensagem de WhatsApp já feita (longa e curta). Link da loja:
+  https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios
+- Nunca avaliações falsas nem troca por avaliação (risco de banimento).
+
+### Ideias de alcance na Play Console (a avaliar com o Henrique)
+- Liberar **outros países de língua portuguesa** (hoje só Brasil): Portugal,
+  Angola, Moçambique, Cabo Verde etc. e diáspora (EUA, Japão, Reino Unido...).
+- **Capturas em marketing** (1080x1920, com legenda) e **capturas de tablet**:
+  o Google pede 4+ capturas com 1080 px de lado para elegibilidade a promoção.
+- Experimentos de página (A/B), páginas personalizadas, links diretos.
+
+### Produto
+- [ ] **v1.3: destaques, favoritos e anotações** (SQLite; testar a migração).
+- [ ] Monitorar Android vitals (falhas/ANRs) nos primeiros dias da 1.2.0 (8).
+- [ ] Aviso "APIs descontinuadas de ponta a ponta" (vem das bibliotecas; some
+  quando React Native/Expo atualizarem). Reavaliar a cada SDK.
+- [ ] Narrador (áudio) e segunda tradução livre — talvez, no futuro.
+- Fora do escopo: AT, apócrifos, traduções protegidas, comentários teológicos.
+
+### Pendências técnicas pequenas
+- [ ] Aparelho de um conhecido que não mostrou "Instalar" (provável país da
+  conta/versão do Android): só investigar se pedirem; precisa de modelo.
+- [ ] Capturas da loja ainda 723x1446 (ok, mas abaixo de 1080 px).
+- [ ] Re-testar o lembrete diário em build real quando houver nova versão.
 
 ## Publicação (lembretes)
 
