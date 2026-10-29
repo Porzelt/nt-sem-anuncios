@@ -10,13 +10,37 @@ import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/livros';
 import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posicao';
-import { lerOfensiva, marcoDe, marcoParaCelebrar } from '@/lib/ofensiva';
+import { deveConvidarAvaliacao, registrarRespostaAvaliacao } from '@/lib/avaliacao';
+import { abrirAvaliacao } from '@/lib/loja';
+import { lerOfensiva, marcoDe, marcoParaCelebrar, type Marco } from '@/lib/ofensiva';
 import { TEMAS } from '@/lib/temas';
 
 const GRUPOS_COM_LIVROS = GRUPOS.map((g) => {
   const livros = LIVROS.filter((l) => l.grupo === g.id);
   return { ...g, livros, capitulos: livros.reduce((soma, l) => soma + l.capitulos, 0) };
 });
+
+/** Comemora um marco da ofensiva; é também o momento do convite para avaliar. */
+function celebrarMarco(marco: Marco) {
+  if (!deveConvidarAvaliacao()) {
+    Alert.alert(`🔥 ${marco.nome}`, marco.celebracao);
+    return;
+  }
+  Alert.alert(
+    `🔥 ${marco.nome}`,
+    `${marco.celebracao}\n\nSe o app está te ajudando, uma avaliação na Play Store ajuda outras pessoas a encontrá-lo.`,
+    [
+      { text: 'Agora não', style: 'cancel', onPress: () => registrarRespostaAvaliacao(false) },
+      {
+        text: 'Avaliar',
+        onPress: () => {
+          registrarRespostaAvaliacao(true);
+          void abrirAvaliacao();
+        },
+      },
+    ],
+  );
+}
 
 export default function Inicio() {
   const router = useRouter();
@@ -39,7 +63,7 @@ export default function Inicio() {
       const o = lerOfensiva();
       setOfensiva(o);
       const novo = marcoParaCelebrar(o.atual);
-      if (novo) Alert.alert(`🔥 ${novo.nome}`, novo.celebracao);
+      if (novo) celebrarMarco(novo);
     }, []),
   );
 
@@ -125,6 +149,9 @@ export default function Inicio() {
             ? () => {
                 const seguinte = [7, 30, 100, 365, 0].find((d) => d > ofensiva.atual) ?? 0;
                 setOfensiva({ ...ofensiva, atual: seguinte });
+                // Mostra a comemoração (com o convite, se ainda couber) para testar.
+                const marcoSimulado = marcoDe(seguinte);
+                if (marcoSimulado) celebrarMarco(marcoSimulado);
               }
             : undefined
         }>

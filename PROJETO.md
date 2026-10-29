@@ -168,9 +168,9 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 1. [x] **Texto da loja com a palavra "Bíblia"** (feito 28/10: curta + completa, enviadas para revisão; textos em `docs/loja-textos.md`) (título/descrição curta/longa):
    as pessoas pesquisam "bíblia offline/sem anúncios". Exige confirmação do
    Henrique antes de aplicar na Play Console.
-2. [ ] **Compartilhar versículo com o nome do app + link** (só no Compartilhar,
+2. [~] (feito 28/10, falta validar no celular e build) **Compartilhar versículo com o nome do app + link** (só no Compartilhar,
    não no Copiar; desligável nos Ajustes) e **botão "Compartilhar o app"**.
-3. [ ] **Pedido de avaliação no app** depois de vários dias de leitura (conferir
+3. [~] (feito 28/10: junto da comemoração do 1º marco, 7 dias; "Agora não" dá 1 convite a mais no marco seguinte; link market://, sem biblioteca; falta validar) **Pedido de avaliação no app** depois de vários dias de leitura (conferir
    que cabe na promessa de privacidade/sem permissões antes).
 4. [ ] **QR code** com o link da loja + mensagens de divulgação por tipo de grupo.
 5. [ ] **Roteiros de vídeos curtos** (Reels/TikTok/Shorts): "Bíblia sem anúncios",

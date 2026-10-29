@@ -9,6 +9,7 @@ import { Spacing } from '@/constants/theme';
 import { useFonteLeitura } from '@/hooks/use-fonte-leitura';
 import { useTheme } from '@/hooks/use-theme';
 import { lerLembrete, salvarLembrete, type Lembrete } from '@/lib/lembrete';
+import { abrirAvaliacao, compartilharApp } from '@/lib/loja';
 import {
   FONTE_MAX,
   FONTE_MIN,
@@ -36,14 +37,19 @@ const DIAGRAMACOES: { valor: Diagramacao; rotulo: string }[] = [
   { valor: 'linhas', rotulo: 'Um por linha' },
 ];
 
-const ALINHAMENTOS: { valor: 'esquerda' | 'justificado'; rotulo: string }[] = [
+const LINK_COMPARTILHAR: { valor: 'com' | 'sem'; rotulo: string }[] = [
+  { valor: 'com', rotulo: 'Com link do app' },
+  { valor: 'sem', rotulo: 'Sem link' },
+];
+
+const ALINHAMENTOS:{ valor: 'esquerda' | 'justificado'; rotulo: string }[] = [
   { valor: 'esquerda', rotulo: 'À esquerda' },
   { valor: 'justificado', rotulo: 'Justificado' },
 ];
 
 export default function Ajustes() {
   const theme = useTheme();
-  const { tema, fonte, familia, diagramacao, justificar, alterar } = usePreferencias();
+  const { tema, fonte, familia, diagramacao, justificar, linkNoCompartilhar, alterar } = usePreferencias();
   const fonteLeitura = useFonteLeitura();
   const router = useRouter();
 
@@ -104,6 +110,30 @@ export default function Ajustes() {
         </Text>
 
         <SecaoLembrete />
+
+        <ThemedText type="smallBold" themeColor="textSecondary" style={styles.secao}>
+          COMPARTILHAR
+        </ThemedText>
+        <SeletorSegmentado
+          opcoes={LINK_COMPARTILHAR}
+          valor={linkNoCompartilhar ? 'com' : 'sem'}
+          onChange={(v) => alterar({ linkNoCompartilhar: v === 'com' })}
+        />
+        <ThemedText type="small" themeColor="textSecondary">
+          {linkNoCompartilhar
+            ? 'Ao compartilhar um versículo, vai junto "Lido no app Novo Testamento Sem Anúncios" e o link da loja. O Copiar não muda.'
+            : 'Ao compartilhar um versículo, vai só o texto e a referência.'}
+        </ThemedText>
+        <Pressable
+          style={[styles.botao, { backgroundColor: theme.backgroundElement }]}
+          onPress={() => void compartilharApp()}>
+          <ThemedText>Compartilhar o app com alguém</ThemedText>
+        </Pressable>
+        <Pressable
+          style={[styles.botao, { backgroundColor: theme.backgroundElement }]}
+          onPress={() => void abrirAvaliacao()}>
+          <ThemedText>Avaliar na Play Store</ThemedText>
+        </Pressable>
 
         <Pressable
           style={[styles.sobre, { backgroundColor: theme.backgroundElement }]}
@@ -213,4 +243,5 @@ const styles = StyleSheet.create({
   },
   numero: { fontSize: 12, fontWeight: 700 },
   sobre: { marginTop: Spacing.five, padding: Spacing.three, borderRadius: Spacing.two },
+  botao: { padding: Spacing.three, borderRadius: Spacing.two },
 });

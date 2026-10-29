@@ -19,6 +19,8 @@ export type Preferencias = {
   familia: FamiliaFonte;
   diagramacao: Diagramacao;
   justificar: boolean;
+  /** Acrescenta "Lido no app…" + link da loja ao compartilhar versículo. */
+  linkNoCompartilhar: boolean;
 };
 
 const CHAVE = 'preferencias';
@@ -28,6 +30,7 @@ const PADRAO: Preferencias = {
   familia: 'serifada',
   diagramacao: 'paragrafo',
   justificar: false,
+  linkNoCompartilhar: true,
 };
 
 function ler(): Preferencias {

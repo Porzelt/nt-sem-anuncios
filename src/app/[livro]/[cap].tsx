@@ -26,6 +26,7 @@ import { useFonteLeitura } from '@/hooks/use-fonte-leitura';
 import { useTheme } from '@/hooks/use-theme';
 import { semColchetes } from '@/lib/busca';
 import { faixaDeVersiculos, montarCitacao } from '@/lib/citacao';
+import { assinaturaVersiculo } from '@/lib/loja';
 import { buscarLivro, LIVROS, separarAcrescimos } from '@/lib/livros';
 import { alternarLido, capitulosLidos, marcarLido } from '@/lib/lidos';
 import { ajustarPosicaoAoAlternar, capituloSeguinte, salvarPosicao } from '@/lib/posicao';
@@ -52,6 +53,7 @@ export default function Leitura() {
   const [aviso, setAviso] = useState('');
   const [lidos, setLidos] = useState(() => capitulosLidos(params.livro));
   const lista = useRef<FlatList<string[]>>(null);
+  const { linkNoCompartilhar } = usePreferencias();
 
   useEffect(() => {
     if (!aviso) return;
@@ -136,8 +138,10 @@ export default function Leitura() {
     setSelecionados([]);
   }
 
+  // Só o Compartilhar leva a assinatura com o link (o Copiar fica limpo).
   async function compartilhar() {
-    await Share.share({ message: citacao() });
+    const assinatura = linkNoCompartilhar ? `\n\n${assinaturaVersiculo()}` : '';
+    await Share.share({ message: citacao() + assinatura });
     setSelecionados([]);
   }
 
