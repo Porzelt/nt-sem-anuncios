@@ -272,3 +272,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   e "Avaliar" nos Ajustes, convite de avaliação junto do marco de 7 dias.
   Plano: baixar o .aab, conferir permissões, subir no **teste fechado**,
   você testa, e então promover a MESMA versão para produção.
+- 28/10/2026: **1.3.0 (9) enviada para revisão no teste fechado** (permissões do
+  .aab conferidas: sem INTERNET/AD_ID/badges). Produção segue na 1.2.0 (8).
+  Próximo: Henrique atualiza pela Play Store, testa (compartilhar versículo com
+  link, botões dos Ajustes, essencial) e então promovemos a MESMA versão.
