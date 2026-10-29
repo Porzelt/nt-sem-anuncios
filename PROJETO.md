@@ -189,7 +189,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 - Experimentos de página (A/B), páginas personalizadas, links diretos.
 
 ### Produto
-- [ ] **v1.3: destaques, favoritos e anotações** (SQLite; testar a migração).
+- [ ] **Destaques, favoritos e anotações** — ADIADO (28/10): só implementar quando algum usuário pedir. Desenho proposto: 4 cores, destacar = salvar, anotação por versículo, tela "Meus versículos" (SQLite).
 - [ ] Monitorar Android vitals (falhas/ANRs) nos primeiros dias da 1.2.0 (8).
 - [ ] Aviso "APIs descontinuadas de ponta a ponta" (vem das bibliotecas; some
   quando React Native/Expo atualizarem). Reavaliar a cada SDK.
