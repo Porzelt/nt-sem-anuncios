@@ -173,7 +173,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 3. [~] (feito 28/10: junto da comemoração do 1º marco, 7 dias; "Agora não" dá 1 convite a mais no marco seguinte; link market://, sem biblioteca; falta validar) **Pedido de avaliação no app** depois de vários dias de leitura (conferir
    que cabe na promessa de privacidade/sem permissões antes).
 4. [x] **QR code** + mensagens por tipo de grupo (feito 28/10: `assets/divulgacao/` e `docs/divulgacao.md`, links com utm_source por canal).
-5. [ ] **Roteiros de vídeos curtos** (Reels/TikTok/Shorts): "Bíblia sem anúncios",
+5. [x] (feito 29/10: `docs/roteiros-videos.md`) **Roteiros de vídeos curtos** (Reels/TikTok/Shorts): "Bíblia sem anúncios",
    ofensiva, versículos por tema.
 6. [ ] **Medir canais** (Play Console > Desempenho na loja; links diretos com
    origem) e abandonar o que não rende.
@@ -184,7 +184,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 ### Ideias de alcance na Play Console (a avaliar com o Henrique)
 - [x] (28/10: enviado p/ revisão — Portugal, Angola, Moçambique, Cabo Verde, Guiné-Bissau, EUA, Japão, Reino Unido; Timor-Leste e São Tomé e Príncipe não existem na lista da Google Play; Portugal = UE: aviso informativo de bloqueio geográfico, ver se pedem declaração de comerciante). Liberar **outros países de língua portuguesa** (era só Brasil): Portugal,
   Angola, Moçambique, Cabo Verde etc. e diáspora (EUA, Japão, Reino Unido...).
-- **Capturas em marketing** (1080x1920, com legenda) e **capturas de tablet**:
+- [~] (29/10: 5 capturas 1080x1920 em `assets/loja/marketing/`, FALTA subir na Play Console c/ confirmação; tablet ainda não) **Capturas em marketing** (1080x1920, com legenda) e **capturas de tablet**:
   o Google pede 4+ capturas com 1080 px de lado para elegibilidade a promoção.
 - Experimentos de página (A/B), páginas personalizadas, links diretos.
 
@@ -279,3 +279,6 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 - 29/10/2026: 1.3.0 (9) aprovada no teste fechado e **promovida para Produção**
   (9 países, 100%), enviada para revisão. Ao aprovar, a produção sai da 1.2.0 (8)
   para a 1.3.0 (9). Download para novas instalações: 16,9 MB.
+- 29/10/2026: 1.3.0 (9) **publicada em produção** (9 países, 21 instalações).
+  Preparados: capturas de marketing (`assets/loja/marketing/`, 1080x1920) e
+  roteiros de vídeos (`docs/roteiros-videos.md`).
