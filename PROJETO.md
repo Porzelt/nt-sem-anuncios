@@ -276,3 +276,6 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   .aab conferidas: sem INTERNET/AD_ID/badges). Produção segue na 1.2.0 (8).
   Próximo: Henrique atualiza pela Play Store, testa (compartilhar versículo com
   link, botões dos Ajustes, essencial) e então promovemos a MESMA versão.
+- 29/10/2026: 1.3.0 (9) aprovada no teste fechado e **promovida para Produção**
+  (9 países, 100%), enviada para revisão. Ao aprovar, a produção sai da 1.2.0 (8)
+  para a 1.3.0 (9). Download para novas instalações: 16,9 MB.
