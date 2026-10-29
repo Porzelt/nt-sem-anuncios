@@ -267,3 +267,8 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 - 24/10/2026: 1.2.0 (8) validada pelo Henrique no teste fechado (tudo ok) e
   **promovida para Produção** (Brasil, 100%), enviada para revisão do Google.
   Ao aprovar, a produção sai da 1.2.0 (7) para a (8).
+- 28/10/2026: build **1.3.0** enviado ao EAS (id 3ecef8de-a092-409f-994d-2cb3ae5b90fc):
+  link do app ao compartilhar versículo (desligável), botões "Compartilhar o app"
+  e "Avaliar" nos Ajustes, convite de avaliação junto do marco de 7 dias.
+  Plano: baixar o .aab, conferir permissões, subir no **teste fechado**,
+  você testa, e então promover a MESMA versão para produção.
