@@ -172,7 +172,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
    não no Copiar; desligável nos Ajustes) e **botão "Compartilhar o app"**.
 3. [~] (feito 28/10: junto da comemoração do 1º marco, 7 dias; "Agora não" dá 1 convite a mais no marco seguinte; link market://, sem biblioteca; falta validar) **Pedido de avaliação no app** depois de vários dias de leitura (conferir
    que cabe na promessa de privacidade/sem permissões antes).
-4. [ ] **QR code** com o link da loja + mensagens de divulgação por tipo de grupo.
+4. [x] **QR code** + mensagens por tipo de grupo (feito 28/10: `assets/divulgacao/` e `docs/divulgacao.md`, links com utm_source por canal).
 5. [ ] **Roteiros de vídeos curtos** (Reels/TikTok/Shorts): "Bíblia sem anúncios",
    ofensiva, versículos por tema.
 6. [ ] **Medir canais** (Play Console > Desempenho na loja; links diretos com
