@@ -10,7 +10,7 @@ Apocalipse, 27 livros). Sem anúncios, sem login, sem rastreamento,
 100% offline. O foco é uma leitura limpa e agradável. Motivo: não havia
 app assim sem anúncio. Quem quiser ler só parte escolhe o livro na lista.
 
-Repositório: https://github.com/Porzelt/nt-sem-anuncios (privado, branch `master`).
+Repositório: https://github.com/Porzelt/nt-sem-anuncios (PÚBLICO desde ~28/10/2026, branch `master`). Conferido em 03/11: sem e-mails de testadores, chaves nem segredos no histórico; o único e-mail rastreado é o de contato da política de privacidade (aprovado). Manter assim: nunca commitar testadores.txt, keystore, .env nem tokens.
 
 ## Decisões (não reabrir sem motivo forte)
 
@@ -290,3 +290,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   acessos, 26 ativos/mês; 43 instalações no total. "Explorar" já trouxe +10.
   Conclusão: loja bem configurada, o gargalo é o topo do funil (divulgação).
   Dados de origem do tráfego: tela "Crescimento" (grow-overview), cartão Aquisição.
+- 03/11/2026: post do LinkedIn (28/10): 94 impressões, 62 alcançados, 2 reações,
+  1 comentário, 1 compartilhamento, 0 visitas ao perfil. O link do post
+  (lnkd.in/diYxEEj7) leva à Play Store SEM utm_source: instalações vindas dali
+  não são atribuíveis. Próximos posts: usar `&referrer=utm_source%3Dlinkedin`.
