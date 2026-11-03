@@ -15,6 +15,7 @@ Desempenho na loja). Se a origem não aparecer lá, o link continua funcionando.
 | Pedido a pastores e líderes | `lider` |
 | Instagram / Facebook | `redes` |
 | Cartaz / QR code | `qrcode` |
+| LinkedIn | `linkedin` |
 | Botão "Compartilhar o app" dentro do app | `convite` |
 | Versículo compartilhado | `versiculo` |
 
@@ -128,3 +129,60 @@ Só para quem usa de verdade e já gostou; nada de oferecer algo em troca.
 ```
 Obrigado por usar o app! Se ele está te ajudando, uma avaliação na Play Store (nem precisa de texto, só as estrelas) ajuda outras pessoas a encontrá-lo. Faz muita diferença para um app novo. 🙏
 ```
+
+---
+
+## 8. LinkedIn (post de história, não de "baixe meu app")
+
+Link: `https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios&referrer=utm_source%3Dlinkedin`
+
+O LinkedIn é uma rede profissional: o que costuma funcionar ali é contar **a
+história de ter criado e publicado um app**, e não pedir download. O link vai no
+**primeiro comentário** (posts com link no corpo costumam alcançar menos gente).
+Ajuste o texto ao que é verdade para você; os números são os de 03/11/2026.
+
+```
+Publiquei meu primeiro app na Google Play. 📖
+
+É o "Novo Testamento Sem Anúncios": um app gratuito para ler o Novo Testamento no celular, sem anúncios, sem cadastro, sem coleta de dados e funcionando sem internet.
+
+Por que fiz: não encontrei um app de leitura bíblica que não me interrompesse com propaganda. Resolvi criar o que eu queria usar.
+
+O que aprendi no caminho:
+• Para contas pessoais novas, a Play Store exige um teste fechado: 12 pessoas testando por 14 dias. Reunir esses testadores deu trabalho.
+• O feedback deles mudou o app: os versículos por tema e a ofensiva de leitura vieram de sugestões de quem testou.
+• Um app sem anúncios e sem internet é mais simples de manter: não precisa de servidor.
+• Privacidade como diferencial: o app nem tem permissão de acesso à internet.
+
+Hoje são mais de 40 instalações, e estou aprendendo a divulgar sem investir nada.
+
+Se você lê a Bíblia no celular, ou conhece quem lê, o link está no primeiro comentário. Feedback é muito bem-vindo.
+
+#BuildInPublic #ReactNative #Expo #GooglePlay #DesenvolvimentoMobile
+```
+
+[Opcional, se for verdade e você quiser dizer: "Construí com ajuda de IA." Posts
+que contam como foi feito costumam gerar mais conversa.]
+
+**Primeiro comentário (cole o link aqui):**
+```
+Link na Play Store (Android, gratuito): https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios&referrer=utm_source%3Dlinkedin
+```
+
+Cuidados: respeite quem não compartilha da mesma fé (tom de convite, nunca de
+cobrança), responda todos os comentários nas primeiras horas e não repita o post.
+
+---
+
+## Plano da semana (2 divulgações)
+
+| Dia | Onde | O que enviar |
+|---|---|---|
+| 1 (de preferência à noite, entre 19h e 21h) | Família e amigos (WhatsApp) | Mensagem 1. Mande em 2 ou 3 grupos/conversas onde você tem proximidade, um por vez. |
+| 3 ou 4 (manhã, entre 8h e 10h) | LinkedIn | Post da seção 8, com o link no primeiro comentário. |
+
+Depois de cada envio:
+1. Responda a todo mundo que comentar e pergunte o que acharam do app.
+2. Se alguém disser que gostou, peça uma avaliação na Play Store (só quem gostou).
+3. Anote o dia e o canal. Em 7 dias, veja na Play Console (Crescimento →
+   Aquisição) quantas instalações vieram de `familia` e de `linkedin`.
