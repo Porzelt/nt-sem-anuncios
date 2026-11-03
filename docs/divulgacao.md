@@ -186,3 +186,63 @@ Depois de cada envio:
 2. Se alguém disser que gostou, peça uma avaliação na Play Store (só quem gostou).
 3. Anote o dia e o canal. Em 7 dias, veja na Play Console (Crescimento →
    Aquisição) quantas instalações vieram de `familia` e de `linkedin`.
+
+---
+
+## 9. Próximo post do LinkedIn (para ~14 a 17/11, de manhã)
+
+Ângulo: **uma lição técnica de verdade** (as permissões que o app quase teve), e
+não "baixe meu app". Mostra que a promessa de privacidade foi conferida, e
+interessa a outros desenvolvedores. Tudo abaixo aconteceu neste projeto.
+
+Link para o primeiro comentário (com origem):
+`https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios&referrer=utm_source%3Dlinkedin`
+
+```
+Meu app Android não tem permissão de internet. Parece simples, mas quase não foi assim. 🔍
+
+No "Novo Testamento Sem Anúncios" eu prometi: sem anúncios, sem rastreamento e funcionando offline. Para cumprir isso de verdade, precisei olhar o que o build final realmente continha, e não só o meu código.
+
+O que descobri:
+• O primeiro build de teste saiu com permissões que eu nunca pedi: internet, armazenamento, sobreposição de tela, vibração... o Expo inclui várias por padrão.
+• Quando adicionei notificações locais para o lembrete diário, a biblioteca trouxe mais: ID de publicidade e permissões de "contador no ícone" de vários fabricantes.
+• A correção: bloquear tudo isso no app.json (blockedPermissions) e, principalmente, abrir o manifesto do .aab final e conferir uma a uma antes de publicar.
+
+A lição: o que o código faz e o que o pacote declara podem ser coisas diferentes. Se você promete privacidade, confira o manifesto do build.
+
+Hoje o app declara só o necessário para o lembrete opcional (notificações e reinício do lembrete). Zero internet, zero ID de publicidade.
+
+Você já foi surpreendido por permissões que não pediu? Conta aqui.
+
+#AndroidDev #ReactNative #Expo #Privacidade #BuildInPublic
+```
+
+**Primeiro comentário** (cole o link aqui):
+```
+O app, se quiser ver (Android, gratuito): https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios&referrer=utm_source%3Dlinkedin
+```
+
+Dicas: publique em dia útil, de manhã; fique por perto na primeira hora para
+responder comentários (isso pesa muito no alcance); a pergunta final é de propósito,
+para gerar conversa. Não repita o post nem o link em outros posts da semana.
+
+### Alternativa B: post de marco (use só quando for verdade)
+Quando o app chegar a um número redondo (por exemplo 100 instalações) ou tiver
+uma avaliação marcante, troque o ângulo. Preencha com números reais:
+
+```
+Meu app chegou a [X] instalações sem gastar nada com anúncios. 📖
+
+Em [N] semanas, o que mais funcionou:
+• [o que funcionou, ex.: indicações diretas em grupos e igrejas]
+• [outra lição real, ex.: o convite de avaliação só depois de 7 dias de leitura]
+
+O que não funcionou: [algo real, ex.: repostar o mesmo anúncio no mesmo grupo].
+
+[X] ainda é pouco, mas é um começo real, e cada pessoa que lê com calma já valeu.
+
+Se quiser conhecer: link no primeiro comentário.
+
+#BuildInPublic #AndroidDev #ReactNative
+```
+(Só publique com números verdadeiros e conferidos na Play Console.)
