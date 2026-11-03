@@ -175,7 +175,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
 4. [x] **QR code** + mensagens por tipo de grupo (feito 28/10: `assets/divulgacao/` e `docs/divulgacao.md`, links com utm_source por canal).
 5. [x] (feito 29/10: `docs/roteiros-videos.md`) **Roteiros de vídeos curtos** (Reels/TikTok/Shorts): "Bíblia sem anúncios",
    ofensiva, versículos por tema.
-6. [ ] **Medir canais** (Play Console > Desempenho na loja; links diretos com
+6. [ ] **Medir canais** (Play Console > Aumentar número de usuários > "Crescimento" > cartão Aquisição; a "Análise da loja" foi movida para lá; links diretos com
    origem) e abandonar o que não rende.
 - Mensagem de WhatsApp já feita (longa e curta). Link da loja:
   https://play.google.com/store/apps/details?id=com.porzelt.ntsemanuncios
@@ -286,3 +286,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   página da loja e foram enviadas para revisão. Ordem: continue de onde parou,
   versículos por tema, leitura, marque o que leu, três temas. Declaração de IA:
   "Não rotular" (prints reais do app com legenda).
+- 02-03/11/2026: números (28 dias): 234 impressões, 34 instalações, 17 primeiros
+  acessos, 26 ativos/mês; 43 instalações no total. "Explorar" já trouxe +10.
+  Conclusão: loja bem configurada, o gargalo é o topo do funil (divulgação).
+  Dados de origem do tráfego: tela "Crescimento" (grow-overview), cartão Aquisição.
