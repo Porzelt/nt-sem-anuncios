@@ -12,7 +12,7 @@ import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/
 import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posicao';
 import { deveConvidarAvaliacao, registrarRespostaAvaliacao } from '@/lib/avaliacao';
 import { abrirAvaliacao } from '@/lib/loja';
-import { lerOfensiva, marcoDe, marcoParaCelebrar, type Marco } from '@/lib/ofensiva';
+import { lerOfensiva, marcoDe, marcoParaCelebrar, proximoMarco, type Marco } from '@/lib/ofensiva';
 import { TEMAS } from '@/lib/temas';
 
 const GRUPOS_COM_LIVROS = GRUPOS.map((g) => {
@@ -22,7 +22,7 @@ const GRUPOS_COM_LIVROS = GRUPOS.map((g) => {
 
 /** Comemora um marco da ofensiva; é também o momento do convite para avaliar. */
 function celebrarMarco(marco: Marco) {
-  if (!deveConvidarAvaliacao()) {
+  if (!deveConvidarAvaliacao(marco.dias)) {
     Alert.alert(`🔥 ${marco.nome}`, marco.celebracao);
     return;
   }
@@ -134,7 +134,7 @@ export default function Inicio() {
       </Pressable>
 
       <Pressable
-        accessibilityLabel={`${diasSeguidos}. ${mensagemOfensiva}. Toque para configurar o lembrete.`}
+        accessibilityLabel={`${diasSeguidos}. ${mensagemOfensiva}. Toque para ver sua leitura.`}
         style={({ pressed }) => [
           styles.ofensiva,
           {
@@ -142,12 +142,12 @@ export default function Inicio() {
             borderColor: marco?.cor ?? 'transparent',
           },
         ]}
-        onPress={() => router.push('/ajustes')}
+        onPress={() => router.push('/ofensiva')}
         // Só em desenvolvimento: segurar simula os marcos para ver as cores.
         onLongPress={
           __DEV__
             ? () => {
-                const seguinte = [7, 30, 100, 365, 0].find((d) => d > ofensiva.atual) ?? 0;
+                const seguinte = proximoMarco(ofensiva.atual)?.dias ?? 0;
                 setOfensiva({ ...ofensiva, atual: seguinte });
                 // Mostra a comemoração (com o convite, se ainda couber) para testar.
                 const marcoSimulado = marcoDe(seguinte);

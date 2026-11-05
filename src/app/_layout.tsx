@@ -84,6 +84,7 @@ function Navegacao() {
         <Stack.Screen name="ajustes" options={{ title: 'Ajustes', headerRight: () => null }} />
         <Stack.Screen name="sobre" options={{ title: 'Sobre', headerRight: () => null }} />
         <Stack.Screen name="busca" options={{ title: 'Buscar', headerRight: () => null }} />
+        <Stack.Screen name="ofensiva" options={{ title: 'Sua leitura' }} />
       </Stack>
     </ThemeProvider>
   );

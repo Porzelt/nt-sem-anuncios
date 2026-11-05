@@ -294,3 +294,15 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   1 comentário, 1 compartilhamento, 0 visitas ao perfil. O link do post
   (lnkd.in/diYxEEj7) leva à Play Store SEM utm_source: instalações vindas dali
   não são atribuíveis. Próximos posts: usar `&referrer=utm_source%3Dlinkedin`.
+- 05/11/2026: **PENDENTE até 01/02/2027 — declaração de status de comerciante**
+  (e-mail do Google Play de 04/11). Henrique decidiu: conta = **Comerciante**
+  (o MPA vai gerar receita). Ele preenche telefone/endereço (ficam PÚBLICOS:
+  sugerido não usar endereço residencial). Depois, por app: MPA = se aplica
+  (com Termos de Serviço); **Novo Testamento = não se aplica** (gratuito, sem
+  receita). Sem a declaração no prazo, todos os apps saem do Google Play.
+- 05/11/2026 (não validado no celular): **tela "Sua leitura"** (`src/app/ofensiva.tsx`),
+  aberta pelo cartão 🔥 (antes ia para Ajustes): dias seguidos, recorde, próximo
+  marco com barra, marcos conquistados (pelo recorde), calendário de 5 semanas,
+  regra da folga e atalho do lembrete. **12 marcos** (3, 7, 14, 21, 30, 50, 100,
+  200, 365, 500, 730, 1000 dias). Histórico de dias ampliado de 400 para 1200.
+  Convite de avaliação: 1º a partir de 7 dias, o extra a partir de 30.
