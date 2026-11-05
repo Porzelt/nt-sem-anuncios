@@ -10,8 +10,7 @@ import { useTheme } from '@/hooks/use-theme';
 import { alternarLido, todosLidos } from '@/lib/lidos';
 import { buscarLivro, GRUPOS, LIVROS, TOTAL_CAPITULOS, type Livro } from '@/lib/livros';
 import { ajustarPosicaoAoAlternar, lerPosicao, type Posicao } from '@/lib/posicao';
-import { deveConvidarAvaliacao, registrarRespostaAvaliacao } from '@/lib/avaliacao';
-import { abrirAvaliacao } from '@/lib/loja';
+import { devePedirAvaliacao, pedirAvaliacao } from '@/lib/avaliacao';
 import { lerOfensiva, marcoDe, marcoParaCelebrar, proximoMarco, type Marco } from '@/lib/ofensiva';
 import { TEMAS } from '@/lib/temas';
 
@@ -22,24 +21,10 @@ const GRUPOS_COM_LIVROS = GRUPOS.map((g) => {
 
 /** Comemora um marco da ofensiva; é também o momento do convite para avaliar. */
 function celebrarMarco(marco: Marco) {
-  if (!deveConvidarAvaliacao(marco.dias)) {
-    Alert.alert(`🔥 ${marco.nome}`, marco.celebracao);
-    return;
-  }
-  Alert.alert(
-    `🔥 ${marco.nome}`,
-    `${marco.celebracao}\n\nSe o app está te ajudando, uma avaliação na Play Store ajuda outras pessoas a encontrá-lo.`,
-    [
-      { text: 'Agora não', style: 'cancel', onPress: () => registrarRespostaAvaliacao(false) },
-      {
-        text: 'Avaliar',
-        onPress: () => {
-          registrarRespostaAvaliacao(true);
-          void abrirAvaliacao();
-        },
-      },
-    ],
-  );
+  const pedir = devePedirAvaliacao(marco.dias);
+  Alert.alert(`🔥 ${marco.nome}`, marco.celebracao, [
+    { text: 'OK', onPress: pedir ? () => void pedirAvaliacao(marco.dias) : undefined },
+  ]);
 }
 
 export default function Inicio() {
