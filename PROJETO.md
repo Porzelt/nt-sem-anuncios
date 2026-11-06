@@ -294,7 +294,7 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   1 comentário, 1 compartilhamento, 0 visitas ao perfil. O link do post
   (lnkd.in/diYxEEj7) leva à Play Store SEM utm_source: instalações vindas dali
   não são atribuíveis. Próximos posts: usar `&referrer=utm_source%3Dlinkedin`.
-- 05/11/2026: **PENDENTE até 01/02/2027 — declaração de status de comerciante**
+- 05/11/2026: ~~PENDENTE~~ **FEITO 06/11 — declaração de status de comerciante**: conta declarada Comerciante; NT = "não se aplica" (enviado p/ revisão junto da 1.4.0); MPA resolver na sessão dele
   (e-mail do Google Play de 04/11). Henrique decidiu: conta = **Comerciante**
   (o MPA vai gerar receita). Ele preenche telefone/endereço (ficam PÚBLICOS:
   sugerido não usar endereço residencial). Depois, por app: MPA = se aplica
@@ -306,3 +306,4 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   regra da folga e atalho do lembrete. **12 marcos** (3, 7, 14, 21, 30, 50, 100,
   200, 365, 500, 730, 1000 dias). Histórico de dias ampliado de 400 para 1200.
   Convite de avaliação: 1º a partir de 7 dias, o extra a partir de 30.
+- 06/11/2026: v1.4.0 (10) — tela "Sua leitura", 12 marcos, avaliação com janela do Google Play (expo-store-review) nos marcos de 3, 14 e 50 dias. Manifesto conferido (sem INTERNET). Enviada ao teste fechado; análise reiniciada junto da declaração de comerciante do NT.
