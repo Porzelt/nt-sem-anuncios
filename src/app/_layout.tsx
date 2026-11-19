@@ -10,6 +10,7 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter } from 'expo-r
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Pressable } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -35,9 +36,11 @@ export default function RootLayout() {
   if (!fontesProntas) return null;
 
   return (
-    <PreferenciasProvider>
-      <Navegacao />
-    </PreferenciasProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <PreferenciasProvider>
+        <Navegacao />
+      </PreferenciasProvider>
+    </GestureHandlerRootView>
   );
 }
 

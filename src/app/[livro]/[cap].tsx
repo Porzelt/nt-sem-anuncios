@@ -17,6 +17,7 @@ import {
   type ScrollViewInstance,
   type TextLayoutEvent,
 } from 'react-native';
+import { GestureDetector, usePinchGesture } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -32,6 +33,7 @@ import { alternarLido, capitulosLidos, marcarLido } from '@/lib/lidos';
 import { ajustarPosicaoAoAlternar, capituloSeguinte, salvarPosicao } from '@/lib/posicao';
 import { usePreferencias } from '@/lib/preferencias';
 import { carregarLivro } from '@/lib/texto';
+import { deveMostrarDicaPinca, registrarDicaPinca } from '@/lib/dicas';
 
 export default function Leitura() {
   useKeepAwake();
@@ -54,6 +56,23 @@ export default function Leitura() {
   const [lidos, setLidos] = useState(() => capitulosLidos(params.livro));
   const lista = useRef<FlatList<string[]>>(null);
   const { linkNoCompartilhar } = usePreferencias();
+
+  // Dica da pinça: nas 3 primeiras vezes que a pessoa tenta aumentar a letra
+  // com dois dedos, uma faixa explica que o tamanho da letra fica no Aa do topo.
+  const [dicaAa, setDicaAa] = useState(false);
+  const pinca = usePinchGesture({
+    runOnJS: true,
+    onActivate: () => {
+      if (dicaAa || !deveMostrarDicaPinca()) return;
+      registrarDicaPinca();
+      setDicaAa(true);
+    },
+  });
+  useEffect(() => {
+    if (!dicaAa) return;
+    const t = setTimeout(() => setDicaAa(false), 5000);
+    return () => clearTimeout(t);
+  }, [dicaAa]);
 
   useEffect(() => {
     if (!aviso) return;
@@ -166,6 +185,7 @@ export default function Leitura() {
               : undefined,
         }}
       />
+      <GestureDetector gesture={pinca}>
       <FlatList
         ref={lista}
         data={texto}
@@ -203,8 +223,36 @@ export default function Leitura() {
           );
         }}
       />
+      </GestureDetector>
 
-      {(selecionados.length > 0 || aviso) && (
+      {dicaAa && (
+        // Escurece o texto e acende um Aa logo abaixo do Aa do topo.
+        <Pressable style={styles.escurecer} onPress={() => setDicaAa(false)} accessibilityLabel="Fechar dica">
+          <Pressable
+            hitSlop={12}
+            accessibilityLabel="Ajustes de leitura"
+            onPress={() => {
+              setDicaAa(false);
+              router.push('/ajustes');
+            }}
+            style={[styles.aaAceso, { backgroundColor: theme.tint }]}>
+            <ThemedText type="smallBold" style={{ color: theme.tintText, fontSize: 14 }}>
+              ↑
+            </ThemedText>
+            <ThemedText type="smallBold" style={{ color: theme.tintText, fontSize: 24 }}>
+              Aa
+            </ThemedText>
+          </Pressable>
+        </Pressable>
+      )}
+      {dicaAa && (
+        <View style={[styles.barra, { backgroundColor: theme.tint, paddingBottom: Spacing.three + insets.bottom }]}>
+          <ThemedText type="smallBold" style={{ color: theme.tintText }}>
+            Para mudar o tamanho da letra, toque em Aa no topo da tela
+          </ThemedText>
+        </View>
+      )}
+      {!dicaAa && (selecionados.length > 0 || aviso) && (
         <View
           style={[
             styles.barra,
@@ -358,6 +406,16 @@ function PaginaCapitulo({
 }
 
 const styles = StyleSheet.create({
+  escurecer: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)' },
+  aaAceso: {
+    position: 'absolute',
+    top: Spacing.two,
+    right: Spacing.two,
+    alignItems: 'center',
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+    borderRadius: Spacing.three,
+  },
   tela: { flex: 1 },
   pagina: {
     // Deitado ou em tablet, linhas muito longas cansam: a coluna para em 720.

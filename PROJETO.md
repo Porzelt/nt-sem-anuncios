@@ -307,3 +307,4 @@ financeiro; o objetivo é alcance orgânico (sem dinheiro).
   200, 365, 500, 730, 1000 dias). Histórico de dias ampliado de 400 para 1200.
   Convite de avaliação: 1º a partir de 7 dias, o extra a partir de 30.
 - 06/11/2026: v1.4.0 (10) — tela "Sua leitura", 12 marcos, avaliação com janela do Google Play (expo-store-review) nos marcos de 3, 14 e 50 dias. Manifesto conferido (sem INTERNET). Enviada ao teste fechado; análise reiniciada junto da declaração de comerciante do NT.
+- 19/11/2026: v1.4.1 — dica da pinça na leitura: nas 3 primeiras pinças no texto, a tela escurece, aparece um "↑ Aa" aceso abaixo do Aa do topo (abre Ajustes) e uma faixa explica onde mudar a letra. Pinça NÃO muda o tamanho (difícil para idosos). Não mexer no estilo/estado do BotaoAjustes do cabeçalho: nas tentativas, o Aa sumia de todas as telas. Validado no Expo Go.
